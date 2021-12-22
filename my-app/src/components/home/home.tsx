@@ -1,6 +1,4 @@
-import { FilterCenterFocusSharp } from "@mui/icons-material";
-import React, { useEffect } from "react";
-import { useQuery } from "react-query";
+import { useQueries, useQuery } from "react-query";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -8,12 +6,25 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { getData } from "../../redux/api";
+import { getListCargos, getListDrivers, getListTrucks } from "../../redux/api";
 import { useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { getListCargosAndDriver } from "../../redux/actions";
 
 export default function Home() {
-  const { isLoading, isError, data, error } = useQuery("datas", getData);
+  const { isLoading, isError, data } = useQuery("trucks", getListTrucks);
+  const result = useQueries([
+    { queryKey: "trucks", queryFn: getListTrucks },
+    { queryKey: "cargos", queryFn: getListCargos },
+    { queryKey: "driver", queryFn: getListDrivers },
+  ]);
+  const dispatch = useDispatch();
+
   let history = useHistory();
+  useEffect(() => {
+    dispatch(getListCargosAndDriver(result[1], result[2]));
+  }, []);
   if (isLoading) {
     return <span>Loading...</span>;
   }
@@ -38,8 +49,8 @@ export default function Home() {
         </TableHead>
         <TableBody>
           {data &&
-            data.data.length > 0 &&
-            data.data.map((item: any) => (
+            data.length > 0 &&
+            data.map((item: any) => (
               <TableRow
                 key={item.id}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}

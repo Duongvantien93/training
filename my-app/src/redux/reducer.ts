@@ -4,17 +4,19 @@ import * as types from "./contants"
 export interface User {
     login: boolean;
     cargos: any;
-    driver: any;
+    drivers: any;
 }
 
 const initValue: User = {
     login: false,
     cargos: [],
-    driver: []
+    drivers: []
 }
 
 interface UserAction extends Action {
-    payload: Partial<any>;
+    payload: Partial<any>
+    cargos: Partial<any>;
+    drivers: Partial<any>
 }
 
 export function trucksReducer(state = initValue, action: UserAction): any {
@@ -30,10 +32,11 @@ export function trucksReducer(state = initValue, action: UserAction): any {
                 ...state,
                 login: false
             }
-        case 'update_user_id':
+        case types.LIST_CARGOS_DRIVERS:
             return {
                 ...state,
-                ...action.payload
+                cargos: action.cargos,
+                drivers: action.drivers
             }
     }
     return state;

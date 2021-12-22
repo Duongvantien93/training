@@ -2,7 +2,6 @@
 import { useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
@@ -14,7 +13,7 @@ import MenuItem from "@mui/material/MenuItem";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useHistory } from "react-router-dom";
 import { connect, ConnectedProps } from "react-redux";
-import { loginRequestAction, logoutRequestAction } from "../../redux/actions";
+import { logoutRequestAction } from "../../redux/actions";
 import { RootState } from "../../reducers";
 
 interface HeaderProps extends PropsFromRedux {

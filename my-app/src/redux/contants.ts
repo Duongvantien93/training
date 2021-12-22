@@ -1,2 +1,3 @@
 export const LOGIN_REQUEST = "LOGIN"
 export const LOGOUT_REQUEST = "LOGOUT"
+export const LIST_CARGOS_DRIVERS = "LIST_CARGOS_DRIVERS"

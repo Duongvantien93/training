@@ -6,24 +6,15 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import RowTable from "./RowTable";
+import RowTable from "../rowTable/RowTable";
 import { useState } from "react";
+import { connect, ConnectedProps } from "react-redux";
+import { RootState } from "../../reducers";
 
-export default function Cargo() {
-  let abc = [
-    {
-      id: 1,
-      cargo: "computer",
-    },
-    {
-      id: 2,
-      cargo: "vegetables",
-    },
-    {
-      id: 3,
-      cargo: "Telephone",
-    },
-  ];
+interface CargoProps extends PropsFromRedux {
+  cargos: any;
+}
+function Cargo({ cargos }: CargoProps) {
   const [openForm, setOpenForm] = useState<string | null>(null);
   function openFormEdit(id: string) {
     if (id === openForm) {
@@ -32,48 +23,38 @@ export default function Cargo() {
     }
     setOpenForm(id);
   }
+
+  let collumn = Object.keys(cargos);
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell></TableCell>
             <TableCell>id</TableCell>
-            <TableCell align="right">Cargo</TableCell>
+            <TableCell>Cargo</TableCell>
+            <TableCell>Action</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {abc.map((item: any) => (
-            <RowTable
-              openForm={openForm}
-              openFormEdit={openFormEdit}
-              key={item.id}
-              row={item}
-            />
-          ))}
-          {/* {data &&
-        data.data.length > 0 &&
-        data.data.map((item: any) => (
-          <TableRow
-            key={item.id}
-            sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-            onClick={() => history.push(`/truck/${item.id}`)}
-          >
-            <TableCell component="th" scope="row">
-              {item.plate}
-            </TableCell>
-            <TableCell align="right"></TableCell>
-            <TableCell align="right">{item.driver}</TableCell>
-            <TableCell align="right">{item.truck_type}</TableCell>
-            <TableCell align="right">{item.price}</TableCell>
-            <TableCell align="right">{item.dimension}</TableCell>
-            <TableCell align="right">{item.address}</TableCell>
-            <TableCell align="right">{item.production_year}</TableCell>
-            <TableCell align="right">{item.status}</TableCell>
-          </TableRow>
-        ))} */}
+          {cargos.length > 0 &&
+            cargos.map((item: any) => (
+              <RowTable
+                openForm={openForm}
+                openFormEdit={openFormEdit}
+                key={item.id}
+                row={item}
+                collumn={collumn}
+              />
+            ))}
         </TableBody>
       </Table>
     </TableContainer>
   );
 }
+const connector = connect((state: RootState) => {
+  return {
+    cargos: state.trucks.cargos,
+  };
+}, {});
+type PropsFromRedux = ConnectedProps<typeof connector>;
+export default connector(Cargo);

@@ -11,3 +11,10 @@ export function logoutRequestAction() {
         type: types.LOGOUT_REQUEST,
     }
 }
+
+export function getListCargosAndDriver(cargos: any, drivers: any) {
+    return {
+        type: types.LIST_CARGOS_DRIVERS,
+        cargos, drivers
+    }
+}
