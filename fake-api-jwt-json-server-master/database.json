@@ -1,0 +1,314 @@
+{
+  "cargos": [
+    {
+      "id": 3,
+      "cargo": "Telephone number"
+    },
+    {
+      "id": 4,
+      "cargo": "contruction3"
+    },
+    {
+      "id": 5,
+      "cargo": "Music"
+    },
+    {
+      "driver": "",
+      "address": "",
+      "phone": "",
+      "cargo": "Furniture",
+      "id": 6
+    }
+  ],
+  "driver": [
+    {
+      "id": 3,
+      "driver": "Nguyen van C",
+      "address": "ABC",
+      "phone": "0123567893"
+    },
+    {
+      "id": 4,
+      "driver": "Nguyen van DE",
+      "address": "ABC",
+      "phone": "0123567892"
+    },
+    {
+      "id": 5,
+      "driver": "Nguyen van E",
+      "address": "ABC",
+      "phone": "012356789"
+    },
+    {
+      "driver": "Nguyen van AB",
+      "address": "Bac Ninh",
+      "phone": "1245684",
+      "id": 6
+    },
+    {
+      "driver": "Nguyen van ABC",
+      "address": "Bac Ninh",
+      "phone": "1245684211332",
+      "id": 7
+    },
+    {
+      "driver": "Nguyen van C",
+      "address": "ABCcvxcvcxv",
+      "phone": "zczcxzxc",
+      "id": 8
+    }
+  ],
+  "trucks": [
+    {
+      "id": 4,
+      "plate": "Brothwood",
+      "cargos": [
+        "contruction3",
+        "Telephone number"
+      ],
+      "driver": "Nguyen van E",
+      "truck_type": "Rizzellit",
+      "price": "9000000",
+      "dimension": "Callington",
+      "address": "Jannel Ivantyev",
+      "production_year": 50,
+      "status": "Ivantyev",
+      "description": "ádasd"
+    },
+    {
+      "id": 5,
+      "plate": "Atlee",
+      "cargos": [
+        "contruction3",
+        "Music"
+      ],
+      "driver": "Nguyen van C",
+      "truck_type": "Sleep",
+      "price": 12,
+      "dimension": "Bendson",
+      "address": "Nanete Fillan",
+      "production_year": 71,
+      "status": "Fillan",
+      "description": "44455"
+    },
+    {
+      "id": 6,
+      "plate": "Syalvester",
+      "cargos": [
+        "Telephone number",
+        "contruction3",
+        "Music"
+      ],
+      "driver": "Nguyen van DE",
+      "truck_type": "Websdale",
+      "price": 76,
+      "dimension": "Espie",
+      "address": "Wayland Coie",
+      "production_year": 29,
+      "status": "Coie",
+      "description": "dddd"
+    },
+    {
+      "id": 7,
+      "plate": "Colenutt",
+      "cargos": [
+        "contruction3",
+        "Furniture"
+      ],
+      "driver": "Nguyen van ABC",
+      "truck_type": "Goodall",
+      "price": 91,
+      "dimension": "Pawfoot",
+      "address": "Wilfred Gepson",
+      "production_year": 87,
+      "status": "Gepson",
+      "description": "ádasd"
+    },
+    {
+      "id": 8,
+      "plate": "Bethune",
+      "cargos": [
+        "contruction3"
+      ],
+      "driver": "Grigs",
+      "truck_type": "Bewshaw",
+      "price": "26xxxxx",
+      "dimension": "Lamzed",
+      "address": "Sylvester Vyvyan",
+      "production_year": 31,
+      "status": "Vyvyan",
+      "description": "fffff"
+    },
+    {
+      "id": 9,
+      "plate": "Lackington",
+      "cargos": [
+        "contruction3"
+      ],
+      "driver": "Nguyen van C",
+      "truck_type": "Gotecliffe",
+      "price": 3,
+      "dimension": "Janus",
+      "address": "Michaella Bromet",
+      "production_year": 82,
+      "status": "Bromet",
+      "description": "dfe"
+    },
+    {
+      "id": 10,
+      "plate": "Andreopolos",
+      "cargos": [],
+      "driver": "Josuweit",
+      "truck_type": "Armin",
+      "price": 33,
+      "dimension": "Couronne",
+      "address": "Norry Pecha",
+      "production_year": 9,
+      "status": "Pecha",
+      "description": "oooo"
+    },
+    {
+      "id": 11,
+      "plate": "Bernt",
+      "cargos": [],
+      "driver": "Perell",
+      "truck_type": "Buddington",
+      "price": 90,
+      "dimension": "Charette",
+      "address": "Dewain De Gogay",
+      "production_year": 98,
+      "status": "De Gogay",
+      "description": "ooo"
+    },
+    {
+      "id": 12,
+      "plate": "Rushby",
+      "cargos": [],
+      "driver": "Bettington",
+      "truck_type": "Rubinshtein",
+      "price": 51,
+      "dimension": "Venton",
+      "address": "Bethena Skentelbury",
+      "production_year": 12,
+      "status": "Skentelbury",
+      "description": ""
+    },
+    {
+      "id": 14,
+      "plate": "Matschuk",
+      "cargos": [],
+      "driver": "Attride",
+      "truck_type": "Mainwaring",
+      "price": 27,
+      "dimension": "Ledgerton",
+      "address": "Kassey Kubec",
+      "production_year": 27,
+      "status": "Kubec",
+      "description": "."
+    },
+    {
+      "id": 15,
+      "plate": "Mackison",
+      "cargos": [],
+      "driver": "Minkin",
+      "truck_type": "Bwy",
+      "price": 7,
+      "dimension": "Cattanach",
+      "address": "Neysa Sichardt",
+      "production_year": 16,
+      "status": "Sichardt",
+      "description": "."
+    },
+    {
+      "id": 16,
+      "plate": "Ramos",
+      "cargos": [],
+      "driver": "Draper",
+      "truck_type": "Schuchmacher",
+      "price": 82,
+      "dimension": "Lefwich",
+      "address": "Pren Dimock",
+      "production_year": 72,
+      "status": "Dimock",
+      "description": ""
+    },
+    {
+      "id": 17,
+      "plate": "Swetman",
+      "cargos": [],
+      "driver": "Plaistowe",
+      "truck_type": "Minogue",
+      "price": 89,
+      "dimension": "Blaisdell",
+      "address": "Brunhilda Elsworth",
+      "production_year": 33,
+      "status": "Elsworth",
+      "description": ""
+    },
+    {
+      "id": 18,
+      "plate": "Duchant",
+      "cargos": [],
+      "driver": "Fontelles",
+      "truck_type": "Galer",
+      "price": 60,
+      "dimension": "Gourley",
+      "address": "Lazaro Durdle",
+      "production_year": 96,
+      "status": "Durdle",
+      "description": ""
+    },
+    {
+      "id": 19,
+      "plate": "Di Biagio",
+      "cargos": [],
+      "driver": "Yoselevitch",
+      "truck_type": "Dybell",
+      "price": 34,
+      "dimension": "Coule",
+      "address": "Courtney Dagon",
+      "production_year": 74,
+      "status": "Dagon",
+      "description": ""
+    },
+    {
+      "id": 20,
+      "plate": "Brignall",
+      "cargos": [],
+      "driver": "Maskelyne",
+      "truck_type": "Tootal",
+      "price": 63,
+      "dimension": "Woodier",
+      "address": "Jorge Broomhead",
+      "production_year": 61,
+      "status": "Broomhead",
+      "description": ""
+    },
+    {
+      "id": 22,
+      "plate": "30A-2018",
+      "cargos": [],
+      "driver": "",
+      "truck_type": "Sleepddd",
+      "price": "0466834",
+      "dimension": "25-30-4",
+      "address": "Bac Ninh",
+      "production_year": "0789456",
+      "status": "in used",
+      "description": ""
+    },
+    {
+      "id": 23,
+      "plate": "30A-2018",
+      "cargos": [],
+      "driver": "Nguyen van DE",
+      "truck_type": "Sleepddd",
+      "price": "011111111111111111111",
+      "dimension": "25-30-4",
+      "address": "Bac Ninh",
+      "production_year": "0789456",
+      "status": "42452",
+      "description": "Thu do Ha noi"
+    }
+  ]
+}
