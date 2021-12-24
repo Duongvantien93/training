@@ -4,29 +4,35 @@ import { Collapse } from "@mui/material";
 import { useFormik } from "formik";
 import { TextField, Button } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import { ICargo, IDriver } from "../../types/type";
 
 export default function RowTable({
   row,
   openForm,
   openFormEdit,
   collumn,
+  handleSelectItem,
+  handleUpdateItem,
 }: {
   row: any;
   openForm: string | null;
   openFormEdit: (id: string) => void;
   collumn: string[];
+  handleSelectItem: (id: string) => void;
+  handleUpdateItem: (value: IDriver | ICargo) => void;
 }) {
   const formik = useFormik({
     initialValues: row,
     onSubmit: (values: any) => {
-      console.log("login::::", values);
+      handleUpdateItem(values as ICargo | IDriver);
     },
     validate: () => {},
   });
   return (
     <>
       <TableRow sx={{ "& > *": { borderBottom: "unset" } }}>
-        {collumn.map((item) => (
+        {collumn.map((item: string) => (
           <TableCell key={item}>{row[item]}</TableCell>
         ))}
         <TableCell>
@@ -35,6 +41,8 @@ export default function RowTable({
               openFormEdit(row.id);
             }}
           />
+          &nbsp;
+          <DeleteOutlineIcon onClick={() => handleSelectItem(row.id)} />
         </TableCell>
       </TableRow>
       <TableRow>

@@ -1,7 +1,5 @@
-import { Container, Box, Grid, makeStyles } from "@mui/material";
+import { Container, Box, Grid, makeStyles, MenuItem } from "@mui/material";
 import { useHistory, useParams } from "react-router-dom";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputLabel from "@mui/material/InputLabel";
@@ -15,14 +13,9 @@ import {
 } from "react-query";
 import { useEffect, useState } from "react";
 import { trucksApi } from "../../service/api";
-import { IDriver, ITruck, ICargo } from "../../types/type";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogTitle from "@mui/material/DialogTitle";
-import DialogDeleteItem from "../common/dialog";
+import { ICargo, IDriver, ITruck } from "../../types/type";
 
-export default function TruckDetail() {
-  let { id }: { id: string } = useParams();
+export default function NewTruck() {
   const [truck, setTruck] = useState<ITruck>({
     id: "",
     plate: "",
@@ -36,63 +29,35 @@ export default function TruckDetail() {
     status: "",
     description: "",
   });
-  const [openDialog, setOpenDialog] = useState(false);
-  const handleOpenDialog = (open: boolean) => {
-    setOpenDialog(open);
+  const [personName, setPersonName] = useState<string[]>([]);
+  const handleChange = (event: any) => {
+    const {
+      target: { value },
+    } = event;
+    setPersonName(typeof value === "string" ? value.split(",") : value);
   };
   let history = useHistory();
   let formik = useFormik({
     enableReinitialize: true,
     initialValues: truck,
     onSubmit: (values: any) => {
-      values.cargos = personName;
-      updateTruck(values);
+      addNewTruck(values);
       history.push("/");
     },
     validate: () => {},
   });
-  const [personName, setPersonName] = useState<string[]>([]);
-  const handleChange = (event: any) => {
-    const {
-      target: { value },
-    } = event;
-    setPersonName(
-      typeof value === "string" ? value.split(",") : value
-    );
-  };
   let queryClient = useQueryClient();
   const listDrivers: IDriver[] | undefined = queryClient.getQueryData("driver");
   const listCargos: ICargo[] | undefined = queryClient.getQueryData("cargos");
-  const { data, isLoading, isError }: UseQueryResult<ITruck> = useQuery(
-    ["truckById", id],
-    () => trucksApi.getTruckById(id)
-  );
-  const { mutate: updateTruck } = useMutation(trucksApi.updateTruck, {
+  const { mutate: addNewTruck } = useMutation(trucksApi.addNewTruck, {
     onSuccess: (data: any) => {
-      console.log("updateData", data);
+      console.log("add new", data);
     },
   });
-  const { mutate: deleteTruck } = useMutation(trucksApi.deleteTruck, {
-    onSuccess: (data: any) => {
-      history.push("/");
-      console.log("delete", data);
-    },
-  });
-  useEffect(() => {
-    if (data) {
-      setTruck(data);
-      setPersonName(data.cargos);
-    }
-  }, [data]);
-  if (isLoading) {
-    return <span>Loading.......</span>;
-  }
-  if (isError) {
-    return <span>Error.......</span>;
-  }
+  console.log(123);
   return (
     <form onSubmit={formik.handleSubmit}>
-      <h3>Truck detail</h3>
+      <h3>Add new truck</h3>
       <Container>
         <Grid container spacing={2}>
           <Grid item xs={6}>
@@ -101,10 +66,8 @@ export default function TruckDetail() {
               size="small"
               name="plate"
               value={formik.values.plate}
-              disabled
-              onChange={handleChange}
+              onChange={formik.handleChange}
             />
-
             <InputLabel>Cargos :</InputLabel>
             <Select
               fullWidth
@@ -204,23 +167,8 @@ export default function TruckDetail() {
           &nbsp;
         </Grid>
         <Button type="submit" color="primary" variant="outlined">
-          update
+          save
         </Button>
-        &nbsp;
-        <Button
-          onClick={() => handleOpenDialog(true)}
-          color="primary"
-          variant="contained"
-        >
-          delete
-        </Button>
-        <DialogDeleteItem
-          id={id}
-          handleDeleteItem={deleteTruck}
-          handleOpenDialog={handleOpenDialog}
-          openDialog={openDialog}
-          title={"Truck"}
-        />
       </Container>
     </form>
   );

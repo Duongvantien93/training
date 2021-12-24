@@ -3,7 +3,7 @@ export interface ILogin {
     password: string
 }
 export interface ITruck {
-    id: number,
+    id?: number | string,
     plate: string,
     cargos: string[],
     driver: string,
@@ -14,4 +14,27 @@ export interface ITruck {
     production_year: number,
     status: string,
     description: string
+}
+export interface Register {
+    username: string;
+    email: string;
+    password: string;
+}
+export interface RegisterUser {
+    user: Register;
+}
+export interface Login {
+    email: string;
+    password: string;
+}
+export interface ICargo {
+    id?: number | string,
+    cargo: string
+}
+
+export interface IDriver {
+    id?: number | string,
+    driver: string,
+    address: string,
+    phone: string
 }

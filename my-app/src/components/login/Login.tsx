@@ -1,31 +1,40 @@
 import { Container, Box, TextField, Button } from "@mui/material";
 import { useFormik } from "formik";
-import { connect, ConnectedProps } from "react-redux";
-import { loginRequestAction } from "../../redux/actions";
-import { RootState } from "../../reducers";
-import { useEffect } from "react";
+import StorageKeys from "../../service/contants";
+import { Dispatch, SetStateAction, useEffect } from "react";
 import { useHistory } from "react-router-dom";
+import { loginApi } from "../../service/api";
 import { ILogin } from "../../types/type";
+import { useMutation } from "react-query";
+import { AxiosResponse } from "axios";
 
-interface LoginProps extends PropsFromRedux {
-  login: boolean;
-}
-function Login({ login, loginRequestAction }: LoginProps) {
+export default function Login({
+  setLogin,
+}: {
+  setLogin: Dispatch<SetStateAction<boolean>>;
+}) {
   const formik = useFormik({
     initialValues: {
       email: "",
       password: "",
     },
     onSubmit: (values: ILogin) => {
-      console.log("login::::", values);
-      loginRequestAction();
+      mutate(values);
     },
     validate: () => {},
   });
   let history = useHistory();
-  useEffect(() => {
-    if (login) history.push("/");
-  }, [login, history]);
+  const { mutate, isLoading } = useMutation(loginApi.login, {
+    onSuccess: (data: any) => {
+      let token = data.access_token;
+      localStorage.setItem(StorageKeys.TOKEN, token);
+      setLogin(true);
+      history.push("/");
+    },
+    onError: () => {
+      alert("there was an error");
+    },
+  });
   return (
     <Container>
       <Box>
@@ -64,15 +73,3 @@ function Login({ login, loginRequestAction }: LoginProps) {
     </Container>
   );
 }
-const connector = connect(
-  (state: RootState) => {
-    return {
-      login: state.trucks.login,
-    };
-  },
-  {
-    loginRequestAction,
-  }
-);
-type PropsFromRedux = ConnectedProps<typeof connector>;
-export default connector(Login);

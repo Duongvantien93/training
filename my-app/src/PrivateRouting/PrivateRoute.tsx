@@ -1,9 +1,11 @@
-import React from "react";
 import { Route, Redirect } from "react-router-dom";
-import { connect, ConnectedProps } from "react-redux";
-import { RootState } from "../reducers";
+import StorageKeys from "../service/contants";
 
-function PrivateRoute({ component: Component, login: login, ...rest }: any) {
+export default function PrivateRoute({
+  component: Component,
+  login,
+  ...rest
+}: any) {
   return (
     <Route
       {...rest}
@@ -13,10 +15,3 @@ function PrivateRoute({ component: Component, login: login, ...rest }: any) {
     />
   );
 }
-const connector = connect((state: RootState) => {
-  return {
-    login: state.trucks.login,
-  };
-});
-type PropsFromRedux = ConnectedProps<typeof connector>;
-export default connector(PrivateRoute);

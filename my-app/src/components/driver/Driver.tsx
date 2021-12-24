@@ -1,4 +1,9 @@
-import { useQuery } from "react-query";
+import {
+  useMutation,
+  useQuery,
+  useQueryClient,
+  UseQueryResult,
+} from "react-query";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -8,10 +13,25 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import RowTable from "../rowTable/RowTable";
 import { useState } from "react";
-import { getListDrivers } from "../../redux/api";
+import { driversApi } from "../../service/api";
+import { IDriver } from "../../types/type";
+import { Container } from "@mui/material";
+import DialogDeleteItem from "../common/dialog";
+import AddNewItem from "../common/addNewItem";
+import Button from "@mui/material/Button";
 
 export default function Driver() {
   const [openForm, setOpenForm] = useState<string | null>(null);
+  const [openDialog, setOpenDialog] = useState(false);
+  const [idItemSelected, setIdItemSelect] = useState<string>("");
+  const [openAddNewItem, setOpenAddNewItem] = useState<boolean>(false);
+  const handleOpenDialog = (open: boolean) => {
+    setOpenDialog(open);
+  };
+  function handleSelectItem(id: string) {
+    setOpenDialog(true);
+    setIdItemSelect(id);
+  }
   function openFormEdit(id: string) {
     if (id === openForm) {
       setOpenForm(null);
@@ -19,38 +39,88 @@ export default function Driver() {
     }
     setOpenForm(id);
   }
-  const { data, isLoading, isError } = useQuery("driver", getListDrivers);
-  if (isLoading) {
-    return <span>Loading.......</span>;
+  function handleUpdateDriver(value: any) {
+    updateDriver(value);
   }
-  if (isError) {
-    return <span>Error.......</span>;
+  function handleAddNewDriver(value: any) {
+    addNewDriver(value);
   }
-  let collumn = Object.keys(data[0]);
+  let queryClient = useQueryClient();
+  const data: IDriver[] | undefined = queryClient.getQueryData("driver");
+  const { mutate: deleteDriver } = useMutation(driversApi.deleteDriver, {
+    onSuccess: async (data: any) => {
+      await queryClient.refetchQueries(["driver"], {
+        active: false,
+        exact: true,
+      });
+    },
+  });
+  const { mutate: updateDriver } = useMutation(driversApi.updateDriver, {
+    onSuccess: async (data: any) => {
+      await queryClient.refetchQueries(["driver"], {
+        active: false,
+        exact: true,
+      });
+      setOpenForm(null);
+    },
+  });
+  const { mutate: addNewDriver } = useMutation(driversApi.addNewDriver, {
+    onSuccess: async (data: any) => {
+      await queryClient.refetchQueries(["driver"], {
+        active: false,
+        exact: true,
+      });
+      setOpenAddNewItem(false);
+    },
+  });
+  let collumn: string[] = data ? Object.keys(data[0]) : [];
+  let newItem = { driver: "", address: "", phone: "" };
   return (
-    <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            {collumn.map((item) => (
-              <TableCell key={item}>{item}</TableCell>
-            ))}
-            <TableCell>Action</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {data.length > 0 &&
-            data.map((item: any) => (
-              <RowTable
-                openForm={openForm}
-                openFormEdit={openFormEdit}
-                key={item.id}
-                row={item}
-                collumn={collumn}
-              />
-            ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <Container>
+      <Button
+        color="primary"
+        variant="contained"
+        onClick={() => setOpenAddNewItem(!openAddNewItem)}
+      >
+        Add new
+      </Button>
+      {openAddNewItem && (
+        <AddNewItem value={newItem} addNewItem={handleAddNewDriver} />
+      )}
+      <TableContainer component={Paper}>
+        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              {collumn.map((item) => (
+                <TableCell key={item}>{item}</TableCell>
+              ))}
+              <TableCell>Action</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {data &&
+              data.length > 0 &&
+              data.map((item: any) => (
+                <RowTable
+                  openForm={openForm}
+                  openFormEdit={openFormEdit}
+                  key={item.id}
+                  row={item}
+                  collumn={collumn}
+                  handleSelectItem={handleSelectItem}
+                  handleUpdateItem={handleUpdateDriver}
+                />
+              ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      <DialogDeleteItem
+        id={idItemSelected}
+        handleDeleteItem={deleteDriver}
+        handleOpenDialog={handleOpenDialog}
+        openDialog={openDialog}
+        title={"Driver"}
+      />
+    </Container>
   );
 }

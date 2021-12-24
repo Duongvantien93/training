@@ -12,14 +12,15 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useHistory } from "react-router-dom";
-import { connect, ConnectedProps } from "react-redux";
-import { logoutRequestAction } from "../../redux/actions";
-import { RootState } from "../../reducers";
+import StorageKeys from "../../service/contants";
 
-interface HeaderProps extends PropsFromRedux {
+export default function Header({
+  login,
+  setLogin,
+}: {
   login: boolean;
-}
-function Header({ login, logoutRequestAction }: HeaderProps) {
+  setLogin: (login: boolean) => void;
+}) {
   let pages = login
     ? [
         { name: "Home", path: "/" },
@@ -28,12 +29,11 @@ function Header({ login, logoutRequestAction }: HeaderProps) {
         { name: "My Account", path: "/account" },
       ]
     : [
-        { name: "Sign In", path: "/login" },
+        { name: "Login", path: "/login" },
         { name: "Home", path: "/" },
       ];
-  const [value, setValue] = useState(0);
-  const [anchorElNav, setAnchorElNav] = useState(null);
 
+  const [anchorElNav, setAnchorElNav] = useState(null);
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
@@ -43,12 +43,6 @@ function Header({ login, logoutRequestAction }: HeaderProps) {
   let history = useHistory();
   return (
     <AppBar position="static">
-      <Button
-        onClick={logoutRequestAction}
-        sx={{ my: 2, color: "white", display: "block" }}
-      >
-        Go back
-      </Button>
       <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
         <IconButton
           size="large"
@@ -88,6 +82,19 @@ function Header({ login, logoutRequestAction }: HeaderProps) {
               </Typography>
             </MenuItem>
           ))}
+          {login && (
+            <MenuItem>
+              <Typography
+                onClick={() => {
+                  localStorage.removeItem(StorageKeys.TOKEN);
+                  setLogin(false);
+                  history.push("/login");
+                }}
+              >
+                Logout
+              </Typography>
+            </MenuItem>
+          )}
         </Menu>
       </Box>
 
@@ -106,19 +113,21 @@ function Header({ login, logoutRequestAction }: HeaderProps) {
             </Typography>
           </Button>
         ))}
+        {login && (
+          <Button sx={{ my: 2, color: "white", display: "block" }}>
+            <Typography
+              onClick={() => {
+                localStorage.removeItem(StorageKeys.TOKEN);
+                setLogin(false);
+                history.push("/login");
+              }}
+              textAlign="center"
+            >
+              Logout
+            </Typography>
+          </Button>
+        )}
       </Box>
     </AppBar>
   );
 }
-const connector = connect(
-  (state: RootState) => {
-    return {
-      login: state.trucks.login,
-    };
-  },
-  {
-    logoutRequestAction,
-  }
-);
-type PropsFromRedux = ConnectedProps<typeof connector>;
-export default connector(Header);
