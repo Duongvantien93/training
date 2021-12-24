@@ -1,17 +1,11 @@
-import { Container, Box, Grid, makeStyles, MenuItem } from "@mui/material";
-import { useHistory, useParams } from "react-router-dom";
+import { Container, Grid, MenuItem } from "@mui/material";
+import { useHistory } from "react-router-dom";
 import Select from "@mui/material/Select";
-import OutlinedInput from "@mui/material/OutlinedInput";
 import InputLabel from "@mui/material/InputLabel";
 import { TextField, Button } from "@mui/material";
 import { useFormik } from "formik";
-import {
-  useMutation,
-  useQuery,
-  useQueryClient,
-  UseQueryResult,
-} from "react-query";
-import { useEffect, useState } from "react";
+import { useMutation, useQueryClient } from "react-query";
+import { useState } from "react";
 import { trucksApi } from "../../service/api";
 import { ICargo, IDriver, ITruck } from "../../types/type";
 

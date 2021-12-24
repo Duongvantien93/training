@@ -19,12 +19,22 @@ import { Container } from "@mui/material";
 import DialogDeleteItem from "../common/dialog";
 import AddNewItem from "../common/addNewItem";
 import Button from "@mui/material/Button";
+import { makeStyles } from "@mui/styles";
 
+const useStyles = makeStyles({
+  button: {
+    margin: "10px 0 10px 0",
+  },
+  row: {
+    fontWeight: "bold",
+  },
+});
 export default function Driver() {
   const [openForm, setOpenForm] = useState<string | null>(null);
   const [openDialog, setOpenDialog] = useState(false);
   const [idItemSelected, setIdItemSelect] = useState<string>("");
   const [openAddNewItem, setOpenAddNewItem] = useState<boolean>(false);
+  const classes = useStyles();
   const handleOpenDialog = (open: boolean) => {
     setOpenDialog(open);
   };
@@ -78,6 +88,7 @@ export default function Driver() {
   return (
     <Container>
       <Button
+        className={classes.button}
         color="primary"
         variant="contained"
         onClick={() => setOpenAddNewItem(!openAddNewItem)}
@@ -92,9 +103,11 @@ export default function Driver() {
           <TableHead>
             <TableRow>
               {collumn.map((item) => (
-                <TableCell key={item}>{item}</TableCell>
+                <TableCell className={classes.row} key={item}>
+                  {item}
+                </TableCell>
               ))}
-              <TableCell>Action</TableCell>
+              <TableCell className={classes.row}>Action</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>

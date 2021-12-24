@@ -15,8 +15,8 @@ export default function AddNewItem({
 }) {
   const formik = useFormik({
     initialValues: value,
-    onSubmit: (values: any, { resetForm }) => {
-      addNewItem(values as IDriver | ICargo);
+    onSubmit: (values: IDriver | ICargo, { resetForm }) => {
+      addNewItem(values);
       resetForm();
     },
     validate: () => {},

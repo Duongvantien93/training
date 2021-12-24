@@ -10,6 +10,19 @@ import { useHistory } from "react-router-dom";
 import { cargosApi, driversApi, trucksApi } from "../../service/api";
 import { ICargo, IDriver, ITruck } from "../../types/type";
 import { Container, Button } from "@mui/material";
+import { makeStyles } from "@mui/styles";
+
+const useStyles = makeStyles({
+  button: {
+    margin: "10px 0 10px 0",
+  },
+  row: {
+    "& th": {
+      fontWeight: "bold",
+      padding: "0px",
+    },
+  },
+});
 
 export default function Home() {
   const {
@@ -28,7 +41,7 @@ export default function Home() {
     "cargos",
     cargosApi.getListCargos
   );
-
+  const classes = useStyles();
   let history = useHistory();
   if (isLoading) {
     return <span>Loading...</span>;
@@ -37,6 +50,7 @@ export default function Home() {
   return (
     <Container>
       <Button
+        className={classes.button}
         color="primary"
         variant="contained"
         onClick={() => history.push("/truck/newTruck")}
@@ -46,16 +60,16 @@ export default function Home() {
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
-            <TableRow>
+            <TableRow className={classes.row}>
               <TableCell>Truck plate</TableCell>
-              <TableCell align="right">Cargo type</TableCell>
-              <TableCell align="right">Driver</TableCell>
-              <TableCell align="right">Truck type</TableCell>
-              <TableCell align="right">Price</TableCell>
-              <TableCell>Dimension</TableCell>
-              <TableCell align="right">Address</TableCell>
-              <TableCell align="right">Production year</TableCell>
-              <TableCell align="right">Status</TableCell>
+              <TableCell align="center">Cargo type</TableCell>
+              <TableCell align="center">Driver</TableCell>
+              <TableCell align="center">Truck type</TableCell>
+              <TableCell align="center">Price</TableCell>
+              <TableCell align="center">Dimension</TableCell>
+              <TableCell align="center">Address</TableCell>
+              <TableCell align="center">Production year</TableCell>
+              <TableCell align="center">Status</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -70,18 +84,18 @@ export default function Home() {
                   <TableCell component="th" scope="row">
                     {item.plate}
                   </TableCell>
-                  <TableCell align="right">
+                  <TableCell align="center">
                     {item.cargos.map((item: string) => (
                       <span>{item}, </span>
                     ))}
                   </TableCell>
-                  <TableCell align="right">{item.driver}</TableCell>
-                  <TableCell align="right">{item.truck_type}</TableCell>
-                  <TableCell align="right">{item.price}</TableCell>
-                  <TableCell align="right">{item.dimension}</TableCell>
-                  <TableCell align="right">{item.address}</TableCell>
-                  <TableCell align="right">{item.production_year}</TableCell>
-                  <TableCell align="right">{item.status}</TableCell>
+                  <TableCell align="center">{item.driver}</TableCell>
+                  <TableCell align="center">{item.truck_type}</TableCell>
+                  <TableCell align="center">{item.price}</TableCell>
+                  <TableCell align="center">{item.dimension}</TableCell>
+                  <TableCell align="center">{item.address}</TableCell>
+                  <TableCell align="center">{item.production_year}</TableCell>
+                  <TableCell align="center">{item.status}</TableCell>
                 </TableRow>
               ))}
           </TableBody>

@@ -21,11 +21,22 @@ import { Container } from "@mui/material";
 import DialogDeleteItem from "../common/dialog";
 import Button from "@mui/material/Button";
 import AddNewItem from "../common/addNewItem";
+import { makeStyles } from "@mui/styles";
+
+const useStyles = makeStyles({
+  button: {
+    margin: "10px 0 10px 0",
+  },
+  row: {
+    fontWeight: "bold",
+  },
+});
 export default function Cargo() {
   const [openForm, setOpenForm] = useState<string | null>(null);
   const [openDialog, setOpenDialog] = useState(false);
   const [idItemSelected, setIdItemSelect] = useState<string>("");
   const [openAddNewItem, setOpenAddNewItem] = useState<boolean>(false);
+  const classes = useStyles();
   const handleOpenDialog = (open: boolean) => {
     setOpenDialog(open);
   };
@@ -79,6 +90,7 @@ export default function Cargo() {
   return (
     <Container>
       <Button
+        className={classes.button}
         color="primary"
         variant="contained"
         onClick={() => setOpenAddNewItem(!openAddNewItem)}
@@ -92,9 +104,9 @@ export default function Cargo() {
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell>id</TableCell>
-              <TableCell>Cargo</TableCell>
-              <TableCell>Action</TableCell>
+              <TableCell className={classes.row}>id</TableCell>
+              <TableCell className={classes.row}>Cargo</TableCell>
+              <TableCell className={classes.row}>Action</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
