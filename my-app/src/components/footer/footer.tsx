@@ -1,4 +1,4 @@
 // @flow
 export function Footer() {
-  return <div>Footer</div>;
+  return <div>footer</div>;
 }

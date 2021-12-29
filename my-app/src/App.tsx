@@ -1,60 +1,69 @@
 import React, { useState } from "react";
-import logo from "./logo.svg";
 import "./App.css";
-import {
-  QueryClient,
-  QueryClientProvider,
-  useQuery,
-  UseQueryResult,
-} from "react-query";
-import TruckDetail from "./components/truckDetail/truckDetail";
+import { QueryClient, QueryClientProvider } from "react-query";
 import { Footer } from "./components/footer/footer";
 import Header from "./components/header/header";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import Login from "./components/login/Login";
-import Driver from "./components/driver/Driver";
-import Cargo from "./components/cargo/Cargo";
-import Home from "./components/home/home";
-import PrivateRoute from "./PrivateRouting/PrivateRoute";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
+import Login from "./pages/login/Login";
+import Driver from "./pages/driver/driver";
+import Cargo from "./pages/cargo/cargo";
+import PrivateRoute from "./router/privateRoute";
 import StorageKeys from "./service/contants";
-import NewTruck from "./components/home/newTruck";
+import Home from "./pages/home/home";
+import DetailTruck from "./pages/detailTruck/detailTruck";
+import NewTruck from "./pages/newTruck/newTruck";
+import { ReactQueryDevtools } from "react-query/devtools";
+import DetailDriver from "./pages/detailDriver/detailDriver";
+import NewDriver from "./pages/newDriver/newDriver";
+import DetailCargo from "./pages/detailCargo/detailCargo";
+import NewCargo from "./pages/newCargo/newCargo";
+import SignUp from "./pages/signUp/signUp";
+import MyAccount from "./pages/myAccount/myAccount";
+import { router } from "./router/router";
 
 const queryClient = new QueryClient();
 function App() {
   let token = localStorage.getItem(StorageKeys.TOKEN);
   const [login, setLogin] = useState(token ? true : false);
-
+  let tab = [
+    { name: "Login", path: "/login" },
+    { name: "Sign up", path: "/signup" },
+  ];
+  const tabHeader = login ? router.filter((item: any) => item.header) : tab;
   return (
     <Router>
       <div>
-        <Header login={login} setLogin={setLogin} />
+        <Header tab={tabHeader} login={login} setLogin={setLogin} />
         <QueryClientProvider client={queryClient}>
           <Switch>
-            <Route path="/" component={Home} exact />
+            <Route exact path="/">
+              <Redirect to="/truck" />
+            </Route>
             <Route
               path="/login"
               render={(props) => <Login {...props} setLogin={setLogin} />}
               exact
             />
-            <PrivateRoute
-              login={login}
-              path="/driver"
-              component={Driver}
+            <Route
+              path="/signup"
+              render={(props) => <SignUp {...props} setLogin={setLogin} />}
               exact
             />
-
-            <PrivateRoute
-              login={login}
-              path="/truck/newTruck"
-              component={NewTruck}
-            />
-            <PrivateRoute login={login} path="/cargo" component={Cargo} exact />
-            <PrivateRoute
-              login={login}
-              path="/truck/:id"
-              component={TruckDetail}
-            />
+            {router.map((item: any) => (
+              <PrivateRoute
+                login={login}
+                path={item.path}
+                component={item.component}
+                exact
+              />
+            ))}
           </Switch>
+          <ReactQueryDevtools initialIsOpen={false} />
         </QueryClientProvider>
         <Footer />
       </div>

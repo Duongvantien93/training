@@ -1,11 +1,11 @@
 import axiosClient from "./axiosClient";
 import { AxiosResponse } from "axios";
 import {
-    Login, RegisterUser, ITruck, ICargo, IDriver
+    Login, ITruck, ICargo, IDriver
 } from "../types/type";
 
 export const loginApi = {
-    register(data: RegisterUser): Promise<AxiosResponse<unknown, any>> {
+    register(data: Login): Promise<AxiosResponse<unknown, any>> {
         const url = "/auth/register";
         return axiosClient.post(url, data);
     },
@@ -34,6 +34,9 @@ export const trucksApi = {
     getTruckById(id: string) {
         const url = "/trucks"
         return axiosClient.get(url + "/" + id)
+    }, getTruckParams({ page, limit }: { page: number, limit: number }) {
+        const url = "/trucks"
+        return axiosClient.get(url, { params: { _page: page, _limit: limit } })
     }
 }
 export const cargosApi = {
@@ -52,6 +55,14 @@ export const cargosApi = {
     deleteCargo(id: string) {
         const url = "/cargos"
         return axiosClient.delete(`${url}/${id}`)
+    },
+    getCargoById(id: string) {
+        const url = "/cargos"
+        return axiosClient.get(url + "/" + id)
+    },
+    getCargoParams({ page, limit }: { page: number, limit: number }) {
+        const url = "/cargos"
+        return axiosClient.get(url, { params: { _page: page, _limit: limit } })
     }
 }
 export const driversApi = {
@@ -70,6 +81,13 @@ export const driversApi = {
     deleteDriver(id: string) {
         const url = "/driver"
         return axiosClient.delete(`${url}/${id}`)
+    },
+    getDriverById(id: string) {
+        const url = "/driver"
+        return axiosClient.get(url + "/" + id)
+    }, getDriverParams({ page, limit }: { page: number, limit: number }) {
+        const url = "/driver"
+        return axiosClient.get(url, { params: { _page: page, _limit: limit } })
     }
 }
 

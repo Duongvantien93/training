@@ -41,3 +41,36 @@
 svg:hover {
   cursor: pointer;
 }
+
+.form-formik {
+  margin: 10px 0 !important;
+
+}
+
+.box-login {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.select-custom {
+  padding: 5px 25px !important;
+
+}
+
+.select-custom>div {
+  padding: 0 !important;
+}
+
+.chart-ui {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 0 50px;
+}
+
+button {
+  text-transform: capitalize !important;
+  padding: 2px 9px !important;
+  margin: 10px 0 !important;
+
+}
