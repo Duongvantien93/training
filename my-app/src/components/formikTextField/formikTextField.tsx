@@ -1,11 +1,12 @@
 import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
 import Autocomplete from "@mui/material/Autocomplete";
+import InputLabel from "@mui/material/InputLabel";
 
 export default function FormikTextField(props: any) {
   function convertCapitalize(str: string) {
     let newStr = str.charAt(0).toUpperCase() + str.slice(1);
-    if (newStr.includes("_")) newStr.replace("_", " ");
+    if (newStr.includes("_")) return newStr.replace("_", " ");
     return newStr;
   }
   function handleOnChangeAuto(event: any, value: any) {
@@ -21,11 +22,11 @@ export default function FormikTextField(props: any) {
     case "input":
       return (
         <Grid className="form-formik" item xs={6}>
+          <InputLabel>{convertCapitalize(props.name)} :</InputLabel>
           <TextField
             fullWidth
             size="small"
             name={props.name}
-            label={convertCapitalize(props.name)}
             type="text"
             value={props.value}
             onChange={props.handleOnChange}
@@ -39,11 +40,11 @@ export default function FormikTextField(props: any) {
     case "number":
       return (
         <Grid className="form-formik" item xs={6}>
+          <InputLabel>{convertCapitalize(props.name)} :</InputLabel>
           <TextField
             fullWidth
             size="small"
             name={props.name}
-            label={convertCapitalize(props.name)}
             type="number"
             value={props.value}
             onChange={props.handleOnChange}
@@ -57,11 +58,11 @@ export default function FormikTextField(props: any) {
     case "password":
       return (
         <Grid className="form-formik" item xs={6}>
+          <InputLabel>{convertCapitalize(props.name)} :</InputLabel>
           <TextField
             fullWidth
             size="small"
             name={props.name}
-            label={convertCapitalize(props.name)}
             type="password"
             value={props.value}
             onChange={props.handleOnChange}
@@ -75,11 +76,11 @@ export default function FormikTextField(props: any) {
     case "textarea":
       return (
         <Grid className="form-formik" item xs={6}>
+          <InputLabel>{convertCapitalize(props.name)} :</InputLabel>
           <TextField
             fullWidth
             size="small"
             name={props.name}
-            label={convertCapitalize(props.name)}
             type="text"
             value={props.value}
             onChange={props.handleOnChange}
@@ -95,6 +96,7 @@ export default function FormikTextField(props: any) {
     case "select":
       return (
         <Grid className="form-formik" item xs={6}>
+          <InputLabel>{convertCapitalize(props.name)} :</InputLabel>
           <Autocomplete
             onChange={handleOnChangeAuto}
             multiple={props.multi}
@@ -106,7 +108,6 @@ export default function FormikTextField(props: any) {
             renderInput={(params) => (
               <TextField
                 {...params}
-                label={props.name}
                 error={
                   props.touched[props.name] && Boolean(props.error[props.name])
                 }

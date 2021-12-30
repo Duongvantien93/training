@@ -42,10 +42,6 @@ svg:hover {
   cursor: pointer;
 }
 
-.form-formik {
-  margin: 10px 0 !important;
-
-}
 
 .box-login {
   max-width: 800px;
@@ -68,7 +64,8 @@ svg:hover {
   padding: 0 50px;
 }
 
-button {
+
+.button-custom {
   text-transform: capitalize !important;
   padding: 2px 9px !important;
   margin: 10px 0 !important;

@@ -71,7 +71,12 @@ export default function SignUp({
             touched={formik.touched}
             error={formik.errors}
           />
-          <Button color="primary" variant="contained" type="submit">
+          <Button
+            color="primary"
+            className="button-custom"
+            variant="contained"
+            type="submit"
+          >
             Submit
           </Button>
         </form>

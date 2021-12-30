@@ -10,20 +10,10 @@ import {
   Redirect,
 } from "react-router-dom";
 import Login from "./pages/login/Login";
-import Driver from "./pages/driver/driver";
-import Cargo from "./pages/cargo/cargo";
 import PrivateRoute from "./router/privateRoute";
 import StorageKeys from "./service/contants";
-import Home from "./pages/home/home";
-import DetailTruck from "./pages/detailTruck/detailTruck";
-import NewTruck from "./pages/newTruck/newTruck";
 import { ReactQueryDevtools } from "react-query/devtools";
-import DetailDriver from "./pages/detailDriver/detailDriver";
-import NewDriver from "./pages/newDriver/newDriver";
-import DetailCargo from "./pages/detailCargo/detailCargo";
-import NewCargo from "./pages/newCargo/newCargo";
 import SignUp from "./pages/signUp/signUp";
-import MyAccount from "./pages/myAccount/myAccount";
 import { router } from "./router/router";
 
 const queryClient = new QueryClient();
@@ -56,6 +46,7 @@ function App() {
             />
             {router.map((item: any) => (
               <PrivateRoute
+                key={item.name}
                 login={login}
                 path={item.path}
                 component={item.component}

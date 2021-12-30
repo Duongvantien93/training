@@ -46,10 +46,10 @@ export default function Driver() {
   return (
     <Container>
       <Button
-        className={classes.button}
         color="primary"
         variant="contained"
         onClick={() => history.push("/driver/newDriver")}
+        className="button-custom"
       >
         Add new
       </Button>

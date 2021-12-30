@@ -49,10 +49,10 @@ export default function Cargo() {
   return (
     <Container>
       <Button
-        className={classes.button}
         color="primary"
         variant="contained"
         onClick={() => history.push("/cargo/newCargo")}
+        className="button-custom"
       >
         Add new
       </Button>

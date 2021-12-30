@@ -69,7 +69,7 @@ export default function Home() {
   return (
     <div>
       <Button
-        className={classes.button}
+        className="button-custom"
         color="primary"
         variant="contained"
         onClick={() => history.push("/truck/newTruck")}
@@ -78,7 +78,7 @@ export default function Home() {
       </Button>
       &nbsp;
       <Button
-        className={classes.button}
+        className="button-custom"
         color="primary"
         variant="outlined"
         onClick={() => setViewChart(!viewChart)}
