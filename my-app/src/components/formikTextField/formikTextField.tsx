@@ -93,7 +93,6 @@ export default function FormikTextField(props: any) {
         </Grid>
       );
     case "select":
-      console.log("props formik value", props.value);
       return (
         <Grid className="form-formik" item xs={6}>
           <Autocomplete

@@ -39,7 +39,6 @@ export default function FormTruck({
   handleOpenDialog: (open: boolean) => void;
   initialValues: ITruck;
 }) {
-  console.log(typeof initialValues);
   const formik = useFormik({
     initialValues: initialValues,
     enableReinitialize: true,

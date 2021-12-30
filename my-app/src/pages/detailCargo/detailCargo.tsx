@@ -28,7 +28,6 @@ export default function DetailCargo() {
     {
       onSuccess: (data: any) => {
         setCargo(data);
-        console.log("data cargo", cargo);
       },
     }
   );

@@ -24,7 +24,6 @@ export default function NewTruck() {
 
   const { mutate: addNewTruck } = useMutation(trucksApi.addNewTruck, {
     onSuccess: (data: any) => {
-      console.log("add new", data);
       history.push("/truck");
     },
   });

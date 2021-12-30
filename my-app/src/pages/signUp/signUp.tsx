@@ -38,7 +38,9 @@ export default function SignUp({
   const { mutate, isLoading } = useMutation(loginApi.register, {
     onSuccess: (data: any) => {
       let token = data.access_token;
+      let user = data.userResponse;
       localStorage.setItem(StorageKeys.TOKEN, token);
+      localStorage.setItem(StorageKeys.USER, JSON.stringify(user));
       setLogin(true);
       history.push("/");
     },

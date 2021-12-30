@@ -24,17 +24,12 @@ export default function Login({
 }: {
   setLogin: Dispatch<SetStateAction<boolean>>;
 }) {
-  const [user, setUser] = useState<ILogin>({
-    email: "",
-    password: "",
-  });
   const formik = useFormik({
     initialValues: {
       email: "",
       password: "",
     },
     onSubmit: (values: ILogin) => {
-      setUser({ ...values });
       mutate(values);
     },
     validationSchema: ValidateForm,
@@ -43,6 +38,7 @@ export default function Login({
   const { mutate, isLoading } = useMutation(loginApi.login, {
     onSuccess: (data: any) => {
       let token = data.access_token;
+      let user = data.userResponse;
       localStorage.setItem(StorageKeys.TOKEN, token);
       localStorage.setItem(StorageKeys.USER, JSON.stringify(user));
       setLogin(true);

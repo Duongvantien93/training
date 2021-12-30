@@ -2,313 +2,235 @@
   "cargos": [
     {
       "id": 3,
-      "cargo": "Telephone number"
+      "name": "Telephone"
     },
     {
       "id": 4,
-      "cargo": "contruction3"
+      "name": "contruction3"
     },
     {
       "id": 5,
-      "cargo": "Music"
+      "name": "Music"
     },
     {
-      "driver": "",
-      "address": "",
-      "phone": "",
-      "cargo": "Furniture",
-      "id": 6
+      "id": 6,
+      "name": "admin"
     }
   ],
   "driver": [
     {
-      "id": 3,
-      "driver": "Nguyen van C",
-      "address": "ABC",
-      "phone": "0123567893"
-    },
-    {
       "id": 4,
-      "driver": "Nguyen van DE",
+      "name": "Nguyen van DEG",
       "address": "ABC",
-      "phone": "0123567892"
+      "phone": 11111
     },
     {
       "id": 5,
-      "driver": "Nguyen van E",
-      "address": "ABC",
-      "phone": "012356789"
-    },
-    {
-      "driver": "Nguyen van AB",
+      "name": "Nguyen van EB",
       "address": "Bac Ninh",
-      "phone": "1245684",
-      "id": 6
+      "phone": 1245684
     },
     {
-      "driver": "Nguyen van ABC",
+      "id": 6,
+      "name": "Nguyen van AB",
       "address": "Bac Ninh",
-      "phone": "1245684211332",
-      "id": 7
+      "phone": 1245684
     },
     {
-      "driver": "Nguyen van C",
-      "address": "ABCcvxcvcxv",
-      "phone": "zczcxzxc",
+      "id": 7,
+      "name": "Nguyen van ABC",
+      "address": "Bac Ninh",
+      "phone": 12456
+    },
+    {
+      "name": "Can Van S",
+      "address": "Hai phong",
+      "phone": 8242323,
       "id": 8
     }
   ],
   "trucks": [
     {
-      "id": 4,
-      "plate": "Brothwood",
-      "cargos": [
-        "contruction3",
-        "Telephone number"
-      ],
-      "driver": "Nguyen van E",
-      "truck_type": "Rizzellit",
-      "price": "9000000",
-      "dimension": "Callington",
-      "address": "Jannel Ivantyev",
-      "production_year": 50,
-      "status": "Ivantyev",
-      "description": "ádasd"
-    },
-    {
       "id": 5,
-      "plate": "Atlee",
+      "truck_plate": "30K-15815",
       "cargos": [
-        "contruction3",
-        "Music"
+        {
+          "id": 3,
+          "name": "Telephone number"
+        }
       ],
-      "driver": "Nguyen van C",
-      "truck_type": "Sleep",
-      "price": 12,
+      "driver": {
+        "id": 6,
+        "name": "Nguyen van AB",
+        "address": "Bac Ninh",
+        "phone": 1245684
+      },
+      "truck_type": "5 tons",
+      "price": 1500,
       "dimension": "Bendson",
       "address": "Nanete Fillan",
-      "production_year": 71,
-      "status": "Fillan",
-      "description": "44455"
-    },
-    {
-      "id": 6,
-      "plate": "Syalvester",
-      "cargos": [
-        "Telephone number",
-        "contruction3",
-        "Music"
-      ],
-      "driver": "Nguyen van DE",
-      "truck_type": "Websdale",
-      "price": 76,
-      "dimension": "Espie",
-      "address": "Wayland Coie",
-      "production_year": 29,
-      "status": "Coie",
-      "description": "dddd"
+      "production_year": 2000,
+      "status": {
+        "id": "1",
+        "status": "New"
+      },
+      "description": "000000000"
     },
     {
       "id": 7,
-      "plate": "Colenutt",
+      "truck_plate": "29v-8888",
       "cargos": [
-        "contruction3",
-        "Furniture"
+        {
+          "id": 3,
+          "name": "Telephone number"
+        }
       ],
-      "driver": "Nguyen van ABC",
-      "truck_type": "Goodall",
-      "price": 91,
-      "dimension": "Pawfoot",
-      "address": "Wilfred Gepson",
-      "production_year": 87,
-      "status": "Gepson",
-      "description": "ádasd"
+      "driver": {
+        "id": 4,
+        "name": "Nguyen van DE",
+        "address": "ABC",
+        "phone": 1235678
+      },
+      "truck_type": "Rizzellit",
+      "price": 9000,
+      "dimension": "25-30-4",
+      "address": "Bac Ninh",
+      "production_year": 2005,
+      "status": {
+        "id": "1",
+        "status": "New"
+      },
+      "description": "33"
     },
     {
       "id": 8,
-      "plate": "Bethune",
+      "truck_plate": "29A-11245",
       "cargos": [
-        "contruction3"
+        {
+          "id": 5,
+          "name": "Music"
+        }
       ],
-      "driver": "Grigs",
-      "truck_type": "Bewshaw",
-      "price": "26xxxxx",
-      "dimension": "Lamzed",
-      "address": "Sylvester Vyvyan",
-      "production_year": 31,
-      "status": "Vyvyan",
-      "description": "fffff"
+      "driver": {
+        "id": 5,
+        "name": "Nguyen van E",
+        "address": "ABC",
+        "phone": "012356789"
+      },
+      "truck_type": "",
+      "price": 3800,
+      "dimension": "",
+      "address": "s",
+      "production_year": 2010,
+      "status": {
+        "id": "2",
+        "status": "In - Used"
+      },
+      "description": ""
     },
     {
-      "id": 9,
-      "plate": "Lackington",
+      "truck_plate": "29v-2200",
       "cargos": [
-        "contruction3"
+        {
+          "id": 4,
+          "name": "contruction3"
+        }
       ],
-      "driver": "Nguyen van C",
-      "truck_type": "Gotecliffe",
-      "price": 3,
-      "dimension": "Janus",
-      "address": "Michaella Bromet",
-      "production_year": 82,
-      "status": "Bromet",
-      "description": "dfe"
+      "driver": {
+        "id": 6,
+        "name": "Nguyen van AB",
+        "address": "Bac Ninh",
+        "phone": 1245684
+      },
+      "truck_type": "Rizzellit",
+      "price": 7500,
+      "dimension": "25-30-4",
+      "address": "ABCD",
+      "production_year": 2025,
+      "status": {
+        "id": "1",
+        "status": "New"
+      },
+      "description": "",
+      "id": 9
     },
     {
-      "id": 10,
-      "plate": "Andreopolos",
-      "cargos": [],
-      "driver": "Josuweit",
-      "truck_type": "Armin",
-      "price": 33,
-      "dimension": "Couronne",
-      "address": "Norry Pecha",
-      "production_year": 9,
-      "status": "Pecha",
-      "description": "oooo"
+      "truck_plate": "30K-15812",
+      "cargos": [
+        {
+          "id": 4,
+          "name": "contruction3"
+        }
+      ],
+      "driver": {
+        "id": 5,
+        "name": "Nguyen van EB",
+        "address": "Bac Ninh",
+        "phone": 1245684
+      },
+      "truck_type": "5 tons",
+      "price": 10000,
+      "dimension": "rtertert",
+      "address": "Hai phong",
+      "production_year": 2020,
+      "status": {
+        "id": "2",
+        "status": "In - Used"
+      },
+      "description": "222",
+      "id": 10
     },
     {
-      "id": 11,
-      "plate": "Bernt",
-      "cargos": [],
-      "driver": "Perell",
-      "truck_type": "Buddington",
-      "price": 90,
-      "dimension": "Charette",
-      "address": "Dewain De Gogay",
-      "production_year": 98,
-      "status": "De Gogay",
-      "description": "ooo"
-    },
-    {
-      "id": 12,
-      "plate": "Rushby",
-      "cargos": [],
-      "driver": "Bettington",
-      "truck_type": "Rubinshtein",
-      "price": 51,
-      "dimension": "Venton",
-      "address": "Bethena Skentelbury",
-      "production_year": 12,
-      "status": "Skentelbury",
-      "description": ""
-    },
-    {
-      "id": 14,
-      "plate": "Matschuk",
-      "cargos": [],
-      "driver": "Attride",
-      "truck_type": "Mainwaring",
-      "price": 27,
-      "dimension": "Ledgerton",
-      "address": "Kassey Kubec",
-      "production_year": 27,
-      "status": "Kubec",
-      "description": "."
-    },
-    {
-      "id": 15,
-      "plate": "Mackison",
-      "cargos": [],
-      "driver": "Minkin",
-      "truck_type": "Bwy",
-      "price": 7,
-      "dimension": "Cattanach",
-      "address": "Neysa Sichardt",
-      "production_year": 16,
-      "status": "Sichardt",
-      "description": "."
-    },
-    {
-      "id": 16,
-      "plate": "Ramos",
-      "cargos": [],
-      "driver": "Draper",
-      "truck_type": "Schuchmacher",
-      "price": 82,
-      "dimension": "Lefwich",
-      "address": "Pren Dimock",
-      "production_year": 72,
-      "status": "Dimock",
-      "description": ""
-    },
-    {
-      "id": 17,
-      "plate": "Swetman",
-      "cargos": [],
-      "driver": "Plaistowe",
-      "truck_type": "Minogue",
-      "price": 89,
-      "dimension": "Blaisdell",
-      "address": "Brunhilda Elsworth",
-      "production_year": 33,
-      "status": "Elsworth",
-      "description": ""
-    },
-    {
-      "id": 18,
-      "plate": "Duchant",
-      "cargos": [],
-      "driver": "Fontelles",
-      "truck_type": "Galer",
-      "price": 60,
-      "dimension": "Gourley",
-      "address": "Lazaro Durdle",
-      "production_year": 96,
-      "status": "Durdle",
-      "description": ""
-    },
-    {
-      "id": 19,
-      "plate": "Di Biagio",
-      "cargos": [],
-      "driver": "Yoselevitch",
-      "truck_type": "Dybell",
-      "price": 34,
-      "dimension": "Coule",
-      "address": "Courtney Dagon",
-      "production_year": 74,
-      "status": "Dagon",
-      "description": ""
-    },
-    {
-      "id": 20,
-      "plate": "Brignall",
-      "cargos": [],
-      "driver": "Maskelyne",
-      "truck_type": "Tootal",
-      "price": 63,
-      "dimension": "Woodier",
-      "address": "Jorge Broomhead",
-      "production_year": 61,
-      "status": "Broomhead",
-      "description": ""
-    },
-    {
-      "id": 22,
-      "plate": "30A-2018",
-      "cargos": [],
-      "driver": "",
-      "truck_type": "Sleepddd",
-      "price": "0466834",
+      "truck_plate": "29v-2200",
+      "cargos": [
+        {
+          "id": 4,
+          "name": "contruction3"
+        }
+      ],
+      "driver": {
+        "name": "Can Van S",
+        "address": "Hai phong",
+        "phone": 8242323,
+        "id": 8
+      },
+      "truck_type": "10 tons",
+      "price": 9000,
       "dimension": "25-30-4",
       "address": "Bac Ninh",
-      "production_year": "0789456",
-      "status": "in used",
-      "description": ""
+      "production_year": 2015,
+      "status": {
+        "id": "1",
+        "status": "New"
+      },
+      "description": "cc",
+      "id": 11
     },
     {
-      "id": 23,
-      "plate": "30A-2018",
-      "cargos": [],
-      "driver": "Nguyen van DE",
-      "truck_type": "Sleepddd",
-      "price": "011111111111111111111",
-      "dimension": "25-30-4",
-      "address": "Bac Ninh",
-      "production_year": "0789456",
-      "status": "42452",
-      "description": "Thu do Ha noi"
+      "truck_plate": "30K-15816",
+      "cargos": [
+        {
+          "id": 3,
+          "name": "Telephone"
+        }
+      ],
+      "driver": {
+        "id": 5,
+        "name": "Nguyen van EB",
+        "address": "Bac Ninh",
+        "phone": 1245684
+      },
+      "truck_type": "",
+      "price": 15020,
+      "dimension": "",
+      "address": "ABCDE",
+      "production_year": 2035,
+      "status": {
+        "id": "2",
+        "status": "In - Used"
+      },
+      "description": "",
+      "id": 12
     }
   ]
 }

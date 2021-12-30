@@ -25,7 +25,7 @@ export default function DialogDeleteItem({
         onClose={() => handleOpenDialog(false)}
         aria-describedby="alert-dialog-slide-description"
       >
-        <DialogTitle>{`You want tod delete ${title}?`}</DialogTitle>
+        <DialogTitle>{`You want to delete ${title}?`}</DialogTitle>
         <DialogActions>
           <Button onClick={() => handleOpenDialog(false)}>Cancel</Button>
           <Button
