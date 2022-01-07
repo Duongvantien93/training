@@ -7,7 +7,10 @@ interface IProps {
   handleCloseAlert: () => void;
 }
 const SimpleSnackbar = ({ open, message, handleCloseAlert }: IProps) => {
-  const color = message.includes("Success") ? green[700] : red[800];
+  const color =
+    message.includes("Success") || message.includes("success")
+      ? green[700]
+      : red[800];
   return (
     <div>
       <Snackbar

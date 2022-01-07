@@ -7,7 +7,6 @@ import { ILogin } from "../../types/type";
 import FormikTextField from "../../components/formikTextField/formikTextField";
 import * as Yup from "yup";
 import useLogin from "./useLogin";
-import Typography from "@mui/material/Typography";
 
 const ValidateForm = Yup.object().shape({
   email: Yup.string()
@@ -44,12 +43,12 @@ const Login = ({
     localStorage.setItem(StorageKeys.USER, JSON.stringify(user));
     setLogin(true);
     history.push("/truck");
-    handleOpenAlert("Success");
+    handleOpenAlert("Login success");
   };
   const onError = (message: string) => {
     handleOpenAlert("Error");
   };
-  const { mutate, error } = useLogin(onSuccess, onError);
+  const { mutate } = useLogin(onSuccess, onError);
   return (
     <Container>
       <Box className="box-login">
@@ -72,12 +71,7 @@ const Login = ({
             touched={formik.touched.password}
             error={formik.errors.password}
           />
-          <Button
-            color="primary"
-            // className="button-custom"
-            variant="contained"
-            type="submit"
-          >
+          <Button color="primary" variant="contained" type="submit">
             Submit
           </Button>
         </form>

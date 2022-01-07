@@ -30,6 +30,13 @@ const theme = createTheme({
                     textAlign: "center"
                 }
             }
+        },
+        MuiAutocomplete: {
+            styleOverrides: {
+                tag: {
+                    margin: 0
+                }
+            }
         }
     },
 });

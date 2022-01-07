@@ -3,14 +3,14 @@ import Grid from "@mui/material/Grid";
 import Autocomplete from "@mui/material/Autocomplete";
 import InputLabel from "@mui/material/InputLabel";
 import TextField from "@mui/material/TextField";
-import { ICargo, IDriver, IStatus, ITruck } from "../../types/type";
+import { ICargo, IDriver, IStatus, ITruck, ITruckType } from "../../types/type";
 import { FormikTouched, FormikErrors } from "formik";
 
 interface IProps {
   name: string;
   handleOnChange: (e: ChangeEvent<any>) => void;
   value: any;
-  listValues: ReadonlyArray<ICargo[] | IDriver[] | IStatus[]>;
+  listValues: ReadonlyArray<ICargo | IDriver | IStatus | ITruckType>;
   touched?: boolean | FormikTouched<Date>;
   error?: string | string[] | FormikErrors<Date>;
   type: string;
