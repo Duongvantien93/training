@@ -1,15 +1,15 @@
 import axiosClient from "./axiosClient";
 import { AxiosResponse } from "axios";
 import {
-    Login, ITruck, ICargo, IDriver
+    ILogin, ITruck, ICargo, IDriver
 } from "../types/type";
 
 export const loginApi = {
-    register(data: Login): Promise<AxiosResponse<unknown, any>> {
+    register(data: ILogin): Promise<AxiosResponse<unknown, any>> {
         const url = "/auth/register";
         return axiosClient.post(url, data);
     },
-    login(data: Login): Promise<AxiosResponse<{ access_token: string }, any>> {
+    login(data: ILogin): Promise<AxiosResponse<{ access_token: string }, any>> {
         const url = "auth/login";
         return axiosClient.post(url, data);
     },

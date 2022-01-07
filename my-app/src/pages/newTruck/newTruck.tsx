@@ -1,33 +1,37 @@
 import Container from "@mui/material/Container";
-import { fieldTruck } from "../../components/contants/contants";
-import { useMutation } from "react-query";
-import { trucksApi } from "../../service/api";
 import { ITruck } from "../../types/type";
 import { useHistory } from "react-router-dom";
 import FormTruck from "../../components/formTruck/formTruck";
+import { useAddNewTruck } from "./useAddNewTruck";
 
-export default function NewTruck() {
+const NewTruck = ({
+  handleOpenAlert,
+}: {
+  handleOpenAlert: (message: string) => void;
+}) => {
   const initialValues: ITruck = {
     truck_plate: "",
     cargos: [],
     driver: "",
     truck_type: "",
-    price: 0,
+    price: "",
     dimension: "",
     address: "",
-    production_year: 0,
+    production_year: new Date(),
     status: "",
     description: "",
   };
 
   let history = useHistory();
-
-  const { mutate: addNewTruck } = useMutation(trucksApi.addNewTruck, {
-    onSuccess: (data: any) => {
-      history.push("/truck");
-    },
-  });
-  function handleSubmitForm(values: any) {
+  const onSuccess = () => {
+    handleOpenAlert("Success");
+    history.push("/truck");
+  };
+  const onError = () => {
+    handleOpenAlert("Error");
+  };
+  const { mutate: addNewTruck } = useAddNewTruck(onSuccess, onError);
+  function handleSubmitForm(values: ITruck) {
     addNewTruck(values);
   }
 
@@ -35,12 +39,10 @@ export default function NewTruck() {
     <Container>
       <FormTruck
         initialValues={initialValues}
-        type={"truck"}
-        field={fieldTruck}
         title="New"
         handleSubmitForm={handleSubmitForm}
-        handleOpenDialog={() => console.log("opendialog")}
       />
     </Container>
   );
-}
+};
+export default NewTruck;

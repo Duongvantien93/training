@@ -6,8 +6,12 @@ import {
   VictoryAxis,
 } from "victory";
 
-export default function VictoryChart2({ data }: any) {
-  const label = data.map((item: any) => item.x);
+interface IData {
+  x: number;
+  y: number;
+}
+const ChartView = ({ data }: { data: IData[] }) => {
+  const label: string[] = data.map((item: IData) => item.x + "");
   return (
     <div className="chart-ui">
       <VictoryChart theme={VictoryTheme.material} width={300} height={300}>
@@ -33,4 +37,5 @@ export default function VictoryChart2({ data }: any) {
       </VictoryChart>
     </div>
   );
-}
+};
+export default ChartView;

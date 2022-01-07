@@ -1,65 +1,54 @@
-import { useQuery, UseQueryResult } from "react-query";
+import { UseQueryResult } from "react-query";
 import { useHistory } from "react-router-dom";
-import { trucksApi } from "../../service/api";
 import { ITruck } from "../../types/type";
 import { Button } from "@mui/material";
 import TableView from "../../components/table/table";
 import { useEffect, useState } from "react";
-import PaginationTable from "../../components/common/panigation";
-import VictoryChart2 from "../../components/victoryChart/vicrotyChart";
+import PaginationTable from "../../components/pagination/pagination";
+import ChartView from "../../components/victoryChart/victoryChart";
 import Box from "@mui/material/Box";
-import { collumnTruck } from "../../components/contants/contants";
-import { makeStyles } from "@mui/styles";
+import { columnTruck } from "./columnTruck";
+import { useQueryListTruck, useQueryListTruckByParam } from "./useQueryTrucks";
 
-const useStyles = makeStyles({
-  button: {
-    margin: "10px 0 10px 0",
-  },
-  row: {
-    "& th": {
-      fontWeight: "bold",
-      padding: "0px",
-    },
-  },
-});
-
-export default function Home() {
+const Home = () => {
   const [param, setParam] = useState({
     page: 1,
     limit: 2,
   });
+
   const [count, setCount] = useState(0);
   const [viewChart, setViewChart] = useState(false);
+  const onSuccess = () => {
+    if (listTruck && data) setCount(Math.ceil(listTruck.length / param.limit));
+  };
+
   const {
     isLoading,
     data,
     error,
+    status,
     refetch,
-  }: UseQueryResult<ITruck[], { status: string; message: string }> = useQuery(
-    ["trucksByParam", param],
-    () => trucksApi.getTruckParams(param)
-  );
-  const { data: listTruck }: UseQueryResult<ITruck[]> = useQuery(
-    "truck",
-    trucksApi.getListTrucks,
-    {
-      onSuccess: (data) => {
-        setCount(Math.ceil(data.length / param.limit));
-      },
-    }
-  );
-
-  const classes = useStyles();
+  }: UseQueryResult<ITruck[], { status: string; message: string }> =
+    useQueryListTruckByParam(param);
+  const { data: listTruck }: UseQueryResult<ITruck[]> =
+    useQueryListTruck(onSuccess);
   let history = useHistory();
+
   useEffect(() => {
     refetch();
     if (listTruck) setCount(Math.ceil(listTruck.length / param.limit));
-  }, [param]);
+  }, [param, listTruck, refetch]);
+
   if (isLoading) {
     return <span>Loading...</span>;
   }
-  if (error) return <span>An error has occurred: {error.message}</span>;
-  let dataChart = data?.map((item: ITruck) => {
+  if (status === "error") {
+    if (error?.message.includes("code 401")) {
+      localStorage.clear();
+      history.push("/login");
+    }
+  }
+  let dataChart: any = data?.map((item: ITruck) => {
     return {
       x: item.production_year,
       y: item.price,
@@ -69,7 +58,6 @@ export default function Home() {
   return (
     <div>
       <Button
-        className="button-custom"
         color="primary"
         variant="contained"
         onClick={() => history.push("/truck/newTruck")}
@@ -78,23 +66,26 @@ export default function Home() {
       </Button>
       &nbsp;
       <Button
-        className="button-custom"
         color="primary"
         variant="outlined"
         onClick={() => setViewChart(!viewChart)}
       >
         View Chart
       </Button>
-      {data && <TableView data={data} collumns={collumnTruck} />}
-      {count && (
+      {data && data.length > 0 && (
+        <TableView data={data} columns={columnTruck} />
+      )}
+      {data && data.length === 0 && <p>Please add new data</p>}
+      {count > 0 && (
         <PaginationTable count={count} param={param} setParam={setParam} />
       )}
       {viewChart && (
         <Box textAlign="center">
           <h3>Chart</h3>
-          <VictoryChart2 data={dataChart} />
+          <ChartView data={dataChart} />
         </Box>
       )}
     </div>
   );
-}
+};
+export default Home;

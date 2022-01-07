@@ -2,34 +2,28 @@ import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
 import FormikTextField from "../formikTextField/formikTextField";
 import { useFormik } from "formik";
-import { IDriver } from "../../types/type";
+import { IDriver, IField } from "../../types/type";
 import Button from "@mui/material/Button";
 import * as Yup from "yup";
+import { fieldDriver } from "./fieldDriver";
 
-interface IFieldTruck {
-  name: string;
-  type: string;
-  multi: boolean;
-}
 const ValidateForm = Yup.object().shape({
   name: Yup.string().required("Required"),
   address: Yup.string().required("Required"),
+  phone: Yup.string().required("Required"),
 });
-export default function FormDriver({
-  field,
+interface IProps {
+  title: string;
+  handleSubmitForm: (values: IDriver) => void;
+  handleOpenDialog?: (open: boolean) => void;
+  initialValues: IDriver;
+}
+const FormDriver = ({
   title,
   handleSubmitForm,
-  type,
   handleOpenDialog,
   initialValues,
-}: {
-  field: IFieldTruck[];
-  title: string;
-  handleSubmitForm: (values: any) => void;
-  type: string;
-  handleOpenDialog: (open: boolean) => void;
-  initialValues: IDriver;
-}) {
+}: IProps) => {
   const formik = useFormik({
     initialValues: initialValues,
     enableReinitialize: true,
@@ -43,27 +37,25 @@ export default function FormDriver({
       <h3>Driver {title}</h3>
       <form onSubmit={formik.handleSubmit}>
         <Grid container spacing={2}>
-          {field &&
-            field.map((item: IFieldTruck) => {
-              let name = item.name as keyof IDriver;
-              return (
-                <FormikTextField
-                  key={item.name}
-                  {...item}
-                  handleOnChange={formik.handleChange}
-                  value={formik.values[name]}
-                  listValues={[]}
-                  touched={formik.touched}
-                  error={formik.errors}
-                />
-              );
-            })}
+          {fieldDriver.map((item: IField) => {
+            let name = item.name as keyof IDriver;
+            return (
+              <FormikTextField
+                key={item.name}
+                {...item}
+                handleOnChange={formik.handleChange}
+                value={formik.values[name]}
+                touched={formik.touched[name]}
+                error={formik.errors[name]}
+              />
+            );
+          })}
           <Grid item xs={12}>
             <Button type="submit" color="primary" variant="outlined">
               {title === "update" ? "update" : "add"}
             </Button>
             &nbsp;
-            {title === "update" && (
+            {title === "update" && handleOpenDialog && (
               <Button
                 onClick={() => handleOpenDialog(true)}
                 color="primary"
@@ -77,4 +69,5 @@ export default function FormDriver({
       </form>
     </Container>
   );
-}
+};
+export default FormDriver;

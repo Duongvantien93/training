@@ -2,92 +2,110 @@ import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
 import FormikTextField from "../formikTextField/formikTextField";
 import { useFormik } from "formik";
-import { useQuery, UseQueryResult } from "react-query";
-import { cargosApi, driversApi } from "../../service/api";
-import { IDriver, ITruck, ICargo } from "../../types/type";
+import { ITruck, IField } from "../../types/type";
 import Button from "@mui/material/Button";
 import * as Yup from "yup";
+import AutocompleteField from "../autocompleteField/autocompleteField";
+import { fieldTruck } from "./fieldTruck";
+import YearPicker from "../yearPicker/yearPicker";
+import { useQueryListCargos, useQueryListDriver } from "./useQueryListValues";
 
-interface IFieldTruck {
-  name: string;
-  type: string;
-  multi: boolean;
-}
 const ValidateForm = Yup.object().shape({
   truck_plate: Yup.string()
     .required("Required")
     .matches(
-      /^[0-9]{2}[a-z|A-Z]{1}-[0-9]{4,5}$/,
+      /^[0-9]{2}[a-z|A-Z]{1}[0-9]{1}-[0-9]{4,5}$/,
       "Is not in correct format, example: 30A-12345"
     ),
   cargos: Yup.array().min(1, "Required").max(10, "Too Long!"),
   driver: Yup.object().required("Required"),
   address: Yup.string().required("Required").max(200, "Too long!"),
 });
-export default function FormTruck({
-  field,
+
+interface IProps {
+  title: string;
+  handleSubmitForm: (values: ITruck) => void;
+  handleOpenDialog?: (open: boolean) => void;
+  initialValues: ITruck;
+}
+const FormTruck = ({
   title,
   handleSubmitForm,
-  type,
   handleOpenDialog,
   initialValues,
-}: {
-  field: IFieldTruck[];
-  title: string;
-  handleSubmitForm: (values: any) => void;
-  type: string;
-  handleOpenDialog: (open: boolean) => void;
-  initialValues: ITruck;
-}) {
+}: IProps) => {
   const formik = useFormik({
     initialValues: initialValues,
     enableReinitialize: true,
-    onSubmit: (values: any) => {
+    onSubmit: (values: ITruck) => {
       handleSubmitForm(values);
     },
     validationSchema: ValidateForm,
   });
   let status = [
-    { id: "1", status: "New" },
-    { id: "2", status: "In - Used" },
+    { id: "1", name: "New" },
+    { id: "2", name: "In - Used" },
   ];
-  const { data: driver, isLoading: driverLoading }: UseQueryResult<IDriver[]> =
-    useQuery("driver", driversApi.getListDrivers, {
-      enabled: type === "truck",
-    });
-  const { data: cargos, isLoading: cargosLoading }: UseQueryResult<ICargo[]> =
-    useQuery("cargos", cargosApi.getListCargos, {
-      enabled: type === "truck",
-    });
+  let truck_type = [
+    { id: "1", name: "5" },
+    { id: "2", name: "10" },
+    { id: "3", name: "15" },
+    { id: "4", name: "20" },
+  ];
+  const { data: driver, isLoading: driverLoading } = useQueryListDriver();
+  const { data: cargos, isLoading: cargosLoading } = useQueryListCargos();
   if (cargosLoading || driverLoading) return <span>Loading...</span>;
-  let listValues: any = { driver, cargos, status };
+  let listValues: any = { driver, cargos, status, truck_type };
   return (
     <Container>
       <h3>Truck {title}</h3>
       <form onSubmit={formik.handleSubmit}>
         <Grid container spacing={2}>
-          {field &&
-            field.map((item: IFieldTruck) => {
-              let name = item.name as keyof ITruck;
+          {fieldTruck.map((item: IField) => {
+            let name = item.name as keyof ITruck;
+            if (item.type === "select") {
               return (
-                <FormikTextField
+                <AutocompleteField
                   key={item.name}
                   {...item}
                   handleOnChange={formik.handleChange}
+                  setValue={formik.setFieldValue}
                   value={formik.values[name]}
-                  listValues={
-                    item.type === "select" ? listValues[item.name] : []
-                  }
-                  touched={formik.touched}
-                  error={formik.errors}
+                  listValues={listValues[item.name]}
+                  touched={formik.touched[name]}
+                  error={formik.errors[name]}
                 />
               );
-            })}
+            }
+            if (item.type === "date") {
+              return (
+                <YearPicker
+                  key={item.name}
+                  {...item}
+                  handleOnChange={formik.handleChange}
+                  setValue={formik.setFieldValue}
+                  value={formik.values[name]}
+                  touched={formik.touched[name]}
+                  error={formik.errors[name]}
+                />
+              );
+            }
+            return (
+              <FormikTextField
+                key={item.name}
+                {...item}
+                handleOnChange={formik.handleChange}
+                value={formik.values[name]}
+                touched={formik.touched[name]}
+                error={formik.errors[name]}
+              />
+            );
+          })}
           <Button type="submit" color="primary" variant="outlined">
             {title === "update" ? "update" : "add"}
           </Button>
           &nbsp;
-          {title === "update" && (
+          {title === "update" && handleOpenDialog && (
             <Button
               onClick={() => handleOpenDialog(true)}
               color="primary"
@@ -100,4 +118,5 @@ export default function FormTruck({
       </form>
     </Container>
   );
-}
+};
+export default FormTruck;

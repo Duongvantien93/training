@@ -1,13 +1,13 @@
 import { Container, Box, Button } from "@mui/material";
 import { useFormik } from "formik";
-import StorageKeys from "../../service/contants";
-import { Dispatch, SetStateAction, useState } from "react";
+import StorageKeys from "../../service/constants";
+import { Dispatch, SetStateAction } from "react";
 import { useHistory } from "react-router-dom";
-import { loginApi } from "../../service/api";
 import { ILogin } from "../../types/type";
-import { useMutation } from "react-query";
 import FormikTextField from "../../components/formikTextField/formikTextField";
 import * as Yup from "yup";
+import useLogin from "./useLogin";
+import Typography from "@mui/material/Typography";
 
 const ValidateForm = Yup.object().shape({
   email: Yup.string()
@@ -19,11 +19,13 @@ const ValidateForm = Yup.object().shape({
   password: Yup.string().required("Required"),
 });
 
-export default function Login({
+const Login = ({
   setLogin,
+  handleOpenAlert,
 }: {
   setLogin: Dispatch<SetStateAction<boolean>>;
-}) {
+  handleOpenAlert: (message: string) => void;
+}) => {
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -35,16 +37,19 @@ export default function Login({
     validationSchema: ValidateForm,
   });
   let history = useHistory();
-  const { mutate, isLoading } = useMutation(loginApi.login, {
-    onSuccess: (data: any) => {
-      let token = data.access_token;
-      let user = data.userResponse;
-      localStorage.setItem(StorageKeys.TOKEN, token);
-      localStorage.setItem(StorageKeys.USER, JSON.stringify(user));
-      setLogin(true);
-      history.push("/");
-    },
-  });
+  const onSuccess = (data: any) => {
+    let token = data["access_token"];
+    let user = data["userResponse"];
+    localStorage.setItem(StorageKeys.TOKEN, token);
+    localStorage.setItem(StorageKeys.USER, JSON.stringify(user));
+    setLogin(true);
+    history.push("/truck");
+    handleOpenAlert("Success");
+  };
+  const onError = (message: string) => {
+    handleOpenAlert("Error");
+  };
+  const { mutate, error } = useLogin(onSuccess, onError);
   return (
     <Container>
       <Box className="box-login">
@@ -55,10 +60,8 @@ export default function Login({
             name="email"
             value={formik.values.email}
             handleOnChange={formik.handleChange}
-            listValues={[]}
-            multi={false}
-            touched={formik.touched}
-            error={formik.errors}
+            touched={formik.touched.email}
+            error={formik.errors.email}
           />
 
           <FormikTextField
@@ -66,14 +69,12 @@ export default function Login({
             name="password"
             value={formik.values.password}
             handleOnChange={formik.handleChange}
-            listValues={[]}
-            multi={false}
-            touched={formik.touched}
-            error={formik.errors}
+            touched={formik.touched.password}
+            error={formik.errors.password}
           />
           <Button
             color="primary"
-            className="button-custom"
+            // className="button-custom"
             variant="contained"
             type="submit"
           >
@@ -83,4 +84,5 @@ export default function Login({
       </Box>
     </Container>
   );
-}
+};
+export default Login;

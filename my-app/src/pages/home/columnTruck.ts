@@ -1,0 +1,1 @@
+export const columnTruck = ["id", "truck_plate", "truck_type", "cargos", "driver", "price", "dimension", "address", "production_year", "status", "description"]

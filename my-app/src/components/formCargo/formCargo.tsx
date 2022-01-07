@@ -2,33 +2,26 @@ import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
 import FormikTextField from "../formikTextField/formikTextField";
 import { useFormik } from "formik";
-import { ICargo } from "../../types/type";
+import { ICargo, IField } from "../../types/type";
 import Button from "@mui/material/Button";
 import * as Yup from "yup";
+import { fieldCargo } from "./fieldCargo";
 
-interface IFieldTruck {
-  name: string;
-  type: string;
-  multi: boolean;
-}
 const ValidateForm = Yup.object().shape({
   name: Yup.string().required("Required"),
 });
-export default function FormCargo({
-  field,
+interface IProps {
+  title: string;
+  handleSubmitForm: (values: ICargo) => void;
+  handleOpenDialog?: (open: boolean) => void;
+  initialValues: ICargo;
+}
+const FormCargo = ({
   title,
   handleSubmitForm,
-  type,
   handleOpenDialog,
   initialValues,
-}: {
-  field: IFieldTruck[];
-  title: string;
-  handleSubmitForm: (values: any) => void;
-  type: string;
-  handleOpenDialog: (open: boolean) => void;
-  initialValues: ICargo;
-}) {
+}: IProps) => {
   const formik = useFormik({
     initialValues: initialValues,
     enableReinitialize: true,
@@ -42,27 +35,25 @@ export default function FormCargo({
       <h3>Cargo {title}</h3>
       <form onSubmit={formik.handleSubmit}>
         <Grid container spacing={2}>
-          {field &&
-            field.map((item: IFieldTruck) => {
-              let name = item.name as keyof ICargo;
-              return (
-                <FormikTextField
-                  key={item.name}
-                  {...item}
-                  handleOnChange={formik.handleChange}
-                  value={formik.values[name]}
-                  listValues={[]}
-                  touched={formik.touched}
-                  error={formik.errors}
-                />
-              );
-            })}
+          {fieldCargo.map((item: IField) => {
+            let name = item.name as keyof ICargo;
+            return (
+              <FormikTextField
+                key={item.name}
+                {...item}
+                handleOnChange={formik.handleChange}
+                value={formik.values[name]}
+                touched={formik.touched[name]}
+                error={formik.errors[name]}
+              />
+            );
+          })}
           <Grid item xs={12}>
             <Button type="submit" color="primary" variant="outlined">
               {title === "update" ? "update" : "add"}
             </Button>
             &nbsp;
-            {title === "update" && (
+            {title === "update" && handleOpenDialog && (
               <Button
                 onClick={() => handleOpenDialog(true)}
                 color="primary"
@@ -76,4 +67,5 @@ export default function FormCargo({
       </form>
     </Container>
   );
-}
+};
+export default FormCargo;

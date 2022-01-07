@@ -1,20 +1,25 @@
 import { Container } from "@mui/material";
-
-import { useState } from "react";
-import { useMutation, useQuery, UseQueryResult } from "react-query";
+import { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
-import DialogDeleteItem from "../../components/common/dialog";
-import { fieldCargo } from "../../components/contants/contants";
+import DialogDeleteItem from "../../components/dialog/dialog";
 import FormCargo from "../../components/formCargo/formCargo";
-import { cargosApi } from "../../service/api";
 import { ICargo } from "../../types/type";
+import {
+  useDeleteCargo,
+  useQueryCargoByID,
+  useUpdateCargo,
+} from "./useDetailCargo";
 
-export default function DetailCargo() {
+const DetailCargo = ({
+  handleOpenAlert,
+}: {
+  handleOpenAlert: (message: string) => void;
+}) => {
   const { id }: { id: string } = useParams();
   const [cargo, setCargo] = useState<ICargo>({
     name: "",
   });
-  function handleSubmitForm(values: any) {
+  function handleSubmitForm(values: ICargo) {
     updateCargo(values);
   }
   const [openDialog, setOpenDialog] = useState(false);
@@ -22,32 +27,24 @@ export default function DetailCargo() {
     setOpenDialog(open);
   };
   const history = useHistory();
-  const { data, isLoading }: UseQueryResult<ICargo, boolean> = useQuery(
-    ["getCargoById", id],
-    () => cargosApi.getCargoById(id),
-    {
-      onSuccess: (data: any) => {
-        setCargo(data);
-      },
-    }
-  );
-  const { mutate: updateCargo } = useMutation(cargosApi.updateCargo, {
-    onSuccess: (data: any) => {
-      history.push("/cargos");
-    },
-  });
-  const { mutate: deleteCargo } = useMutation(cargosApi.deleteCargo, {
-    onSuccess: (data: any) => {
-      history.push("/cargos");
-    },
-  });
+  const onSuccess = () => {
+    history.push("/cargos");
+    handleOpenAlert("Success");
+  };
+  const onError = () => {
+    handleOpenAlert("Error");
+  };
+  const { data, isLoading } = useQueryCargoByID(id);
+  const { mutate: updateCargo } = useUpdateCargo(onSuccess, onError);
+  const { mutate: deleteCargo } = useDeleteCargo(onSuccess, onError);
+  useEffect(() => {
+    if (data) setCargo(data);
+  }, [data, setCargo]);
   if (isLoading) return <span>Loading...</span>;
   return (
     <Container>
       <FormCargo
         initialValues={cargo}
-        type={"cargo"}
-        field={fieldCargo}
         title="update"
         handleSubmitForm={handleSubmitForm}
         handleOpenDialog={handleOpenDialog}
@@ -61,4 +58,5 @@ export default function DetailCargo() {
       />
     </Container>
   );
-}
+};
+export default DetailCargo;

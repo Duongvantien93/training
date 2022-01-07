@@ -1,15 +1,21 @@
 import Container from "@mui/material/Container";
-import { fieldTruck } from "../../components/contants/contants";
-import { useMutation, useQuery, UseQueryResult } from "react-query";
-import { useState } from "react";
-import { trucksApi } from "../../service/api";
+import { UseQueryResult } from "react-query";
+import { useEffect, useState } from "react";
 import { ITruck } from "../../types/type";
-
-import DialogDeleteItem from "../../components/common/dialog";
+import DialogDeleteItem from "../../components/dialog/dialog";
 import { useParams, useHistory } from "react-router-dom";
 import FormTruck from "../../components/formTruck/formTruck";
+import {
+  useDeleteTruck,
+  useQueryTruckByID,
+  useUpdateTruck,
+} from "./useDetailTruck";
 
-export default function DetailTruck() {
+const DetailTruck = ({
+  handleOpenAlert,
+}: {
+  handleOpenAlert: (message: string) => void;
+}) => {
   let { id }: { id: string } = useParams();
   const [truck, setTruck] = useState<any>({
     plate: "",
@@ -27,36 +33,30 @@ export default function DetailTruck() {
   const handleOpenDialog = (open: boolean) => {
     setOpenDialog(open);
   };
-  const { data, isLoading }: UseQueryResult<ITruck, boolean> = useQuery(
-    ["trucks", id],
-    () => trucksApi.getTruckById(id),
-    {
-      onSuccess: (data: any) => {
-        setTruck(data);
-      },
-    }
-  );
+  const onSuccess = () => {
+    history.push("/truck");
+    handleOpenAlert("Success");
+  };
+  const onError = () => {
+    handleOpenAlert("Error");
+  };
+  const { data, isLoading }: UseQueryResult<ITruck, boolean> =
+    useQueryTruckByID(id);
   let history = useHistory();
-  const { mutate: updateTruck } = useMutation(trucksApi.updateTruck, {
-    onSuccess: (data: any) => {
-      history.push("/truck");
-    },
-  });
-  const { mutate: deleteTruck } = useMutation(trucksApi.deleteTruck, {
-    onSuccess: (data: any) => {
-      history.push("/truck");
-    },
-  });
-  function handleSubmitForm(values: any) {
+  const { mutate: updateTruck } = useUpdateTruck(onSuccess, onError);
+  const { mutate: deleteTruck } = useDeleteTruck(onSuccess, onError);
+  function handleSubmitForm(values: ITruck) {
     updateTruck(values);
   }
+  useEffect(() => {
+    if (data) setTruck(data);
+  }, [data]);
+
   if (isLoading) return <span>Loading...</span>;
   return (
     <Container>
       <FormTruck
         initialValues={truck}
-        type={"truck"}
-        field={fieldTruck}
         title="update"
         handleSubmitForm={handleSubmitForm}
         handleOpenDialog={handleOpenDialog}
@@ -70,4 +70,5 @@ export default function DetailTruck() {
       />
     </Container>
   );
-}
+};
+export default DetailTruck;

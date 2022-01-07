@@ -1,5 +1,5 @@
 import axios from "axios";
-import StorageKeys from "./contants";
+import StorageKeys from "./constants";
 
 const axiosClient = axios.create({
     baseURL: "http://localhost:8000",

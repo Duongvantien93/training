@@ -1,3 +1,4 @@
+import { IRouter } from './../types/type';
 import Cargo from "../pages/cargo/cargo"
 import DetailCargo from "../pages/detailCargo/detailCargo"
 import DetailDriver from "../pages/detailDriver/detailDriver"
@@ -9,7 +10,7 @@ import NewCargo from "../pages/newCargo/newCargo"
 import NewDriver from "../pages/newDriver/newDriver"
 import NewTruck from "../pages/newTruck/newTruck"
 
-export const router = [
+export const router: IRouter[] = [
     {
         path: "/truck",
         component: Home,

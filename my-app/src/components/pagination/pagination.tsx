@@ -1,23 +1,18 @@
-import React, { SetStateAction, Dispatch } from "react";
+import { SetStateAction, Dispatch, ChangeEvent } from "react";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import { MenuItem, Select, SelectChangeEvent, InputLabel } from "@mui/material";
 
-export default function PaginationTable({
-  setParam,
-  param,
-  count,
-}: {
+interface IProps {
   setParam: Dispatch<SetStateAction<{ page: number; limit: number }>>;
   param: { page: number; limit: number };
   count: number;
-}) {
-  function handleChange(event: React.ChangeEvent<any>, page: number) {
+}
+const PaginationTable = ({ setParam, param, count }: IProps) => {
+  const handleChange = (event: ChangeEvent<any>, page: number) =>
     setParam({ ...param, page: page });
-  }
-  function handleChangeLimit(event: SelectChangeEvent<any>) {
+  const handleChangeLimit = (event: SelectChangeEvent<any>) =>
     setParam({ limit: event.target.value, page: 1 });
-  }
   return (
     <Stack
       direction="row"
@@ -45,4 +40,5 @@ export default function PaginationTable({
       </Select>
     </Stack>
   );
-}
+};
+export default PaginationTable;

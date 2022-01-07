@@ -4,19 +4,20 @@ import DialogTitle from "@mui/material/DialogTitle";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 
-export default function DialogDeleteItem({
-  id,
-  openDialog,
-  handleDeleteItem,
-  handleOpenDialog,
-  title,
-}: {
+interface IProps {
   id: string;
   openDialog: boolean;
   handleDeleteItem: (id: string) => void;
   handleOpenDialog: (open: boolean) => void;
   title: string;
-}) {
+}
+const DialogDeleteItem = ({
+  id,
+  openDialog,
+  handleDeleteItem,
+  handleOpenDialog,
+  title,
+}: IProps) => {
   return (
     <Box>
       <Dialog
@@ -40,4 +41,5 @@ export default function DialogDeleteItem({
       </Dialog>
     </Box>
   );
-}
+};
+export default DialogDeleteItem;

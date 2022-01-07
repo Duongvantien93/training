@@ -1,15 +1,20 @@
 import { Container } from "@mui/material";
-
-import { useState } from "react";
-import { useMutation, useQuery, UseQueryResult } from "react-query";
+import { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
-import DialogDeleteItem from "../../components/common/dialog";
-import { fieldDriver } from "../../components/contants/contants";
+import DialogDeleteItem from "../../components/dialog/dialog";
 import FormDriver from "../../components/formDriver/formDriver";
-import { driversApi } from "../../service/api";
 import { IDriver } from "../../types/type";
+import {
+  useDeleteDriver,
+  useQueryDriverByID,
+  useUpdateDriver,
+} from "./useDetailDriver";
 
-export default function DetailDriver() {
+const DetailDriver = ({
+  handleOpenAlert,
+}: {
+  handleOpenAlert: (message: string) => void;
+}) => {
   const { id }: { id: string } = useParams();
   const [driver, setDriver] = useState<IDriver>({
     name: "",
@@ -23,33 +28,25 @@ export default function DetailDriver() {
   const handleOpenDialog = (open: boolean) => {
     setOpenDialog(open);
   };
+  const onSuccess = () => {
+    history.push("/driver");
+    handleOpenAlert("Success");
+  };
+  const onError = () => {
+    handleOpenAlert("Error");
+  };
   const history = useHistory();
-  const { data, isLoading }: UseQueryResult<IDriver, boolean> = useQuery(
-    ["getdriverbyId", id],
-    () => driversApi.getDriverById(id),
-    {
-      onSuccess: (data: any) => {
-        setDriver(data);
-      },
-    }
-  );
-  const { mutate: updateDriver } = useMutation(driversApi.updateDriver, {
-    onSuccess: (data: any) => {
-      history.push("/driver");
-    },
-  });
-  const { mutate: deleteDriver } = useMutation(driversApi.deleteDriver, {
-    onSuccess: (data: any) => {
-      history.push("/driver");
-    },
-  });
+  const { data, isLoading } = useQueryDriverByID(id);
+  const { mutate: updateDriver } = useUpdateDriver(onSuccess, onError);
+  const { mutate: deleteDriver } = useDeleteDriver(onSuccess, onError);
+  useEffect(() => {
+    if (data) setDriver(data);
+  }, [data]);
   if (isLoading) return <span>Loading...</span>;
   return (
     <Container>
       <FormDriver
         initialValues={driver}
-        type={"driver"}
-        field={fieldDriver}
         title="update"
         handleSubmitForm={handleSubmitForm}
         handleOpenDialog={handleOpenDialog}
@@ -63,4 +60,5 @@ export default function DetailDriver() {
       />
     </Container>
   );
-}
+};
+export default DetailDriver;

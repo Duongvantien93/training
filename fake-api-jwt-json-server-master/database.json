@@ -1,20 +1,12 @@
 {
   "cargos": [
     {
-      "id": 3,
-      "name": "Telephone"
+      "name": "Hai",
+      "id": 1
     },
     {
-      "id": 4,
-      "name": "contruction3"
-    },
-    {
-      "id": 5,
-      "name": "Music"
-    },
-    {
-      "id": 6,
-      "name": "admin"
+      "name": "Ba",
+      "id": 2
     }
   ],
   "driver": [
@@ -47,16 +39,27 @@
       "address": "Hai phong",
       "phone": 8242323,
       "id": 8
+    },
+    {
+      "name": "Lê văn C",
+      "address": "Hai phong",
+      "phone": 0,
+      "id": 9
+    },
+    {
+      "name": "admin",
+      "address": "Bac Ninh",
+      "phone": 0,
+      "id": 10
     }
   ],
   "trucks": [
     {
-      "id": 5,
-      "truck_plate": "30K-15815",
+      "truck_plate": "30K1-15815",
       "cargos": [
         {
-          "id": 3,
-          "name": "Telephone number"
+          "name": "Hà",
+          "id": 2
         }
       ],
       "driver": {
@@ -65,172 +68,49 @@
         "address": "Bac Ninh",
         "phone": 1245684
       },
-      "truck_type": "5 tons",
-      "price": 1500,
-      "dimension": "Bendson",
-      "address": "Nanete Fillan",
-      "production_year": 2000,
-      "status": {
+      "truck_type": {
         "id": "1",
-        "status": "New"
+        "name": "5"
       },
-      "description": "000000000"
-    },
-    {
-      "id": 7,
-      "truck_plate": "29v-8888",
-      "cargos": [
-        {
-          "id": 3,
-          "name": "Telephone number"
-        }
-      ],
-      "driver": {
-        "id": 4,
-        "name": "Nguyen van DE",
-        "address": "ABC",
-        "phone": 1235678
-      },
-      "truck_type": "Rizzellit",
-      "price": 9000,
+      "price": 4545,
       "dimension": "25-30-4",
-      "address": "Bac Ninh",
-      "production_year": 2005,
+      "address": "vcxv",
+      "production_year": "2009-01-06T02:36:53.101Z",
       "status": {
-        "id": "1",
-        "status": "New"
+        "id": "2",
+        "name": "In - Used"
       },
-      "description": "33"
+      "description": "",
+      "id": 25
     },
     {
-      "id": 8,
-      "truck_plate": "29A-11245",
+      "truck_plate": "30K1-15815",
       "cargos": [
         {
-          "id": 5,
-          "name": "Music"
+          "name": "Ba",
+          "id": 3
         }
       ],
       "driver": {
         "id": 5,
-        "name": "Nguyen van E",
-        "address": "ABC",
-        "phone": "012356789"
-      },
-      "truck_type": "",
-      "price": 3800,
-      "dimension": "",
-      "address": "s",
-      "production_year": 2010,
-      "status": {
-        "id": "2",
-        "status": "In - Used"
-      },
-      "description": ""
-    },
-    {
-      "truck_plate": "29v-2200",
-      "cargos": [
-        {
-          "id": 4,
-          "name": "contruction3"
-        }
-      ],
-      "driver": {
-        "id": 6,
-        "name": "Nguyen van AB",
+        "name": "Nguyen van EB",
         "address": "Bac Ninh",
         "phone": 1245684
       },
-      "truck_type": "Rizzellit",
-      "price": 7500,
+      "truck_type": {
+        "id": "2",
+        "name": "10"
+      },
+      "price": 454,
       "dimension": "25-30-4",
       "address": "ABCD",
-      "production_year": 2025,
+      "production_year": "2022-01-07T02:31:09.332Z",
       "status": {
         "id": "1",
-        "status": "New"
+        "name": "New"
       },
       "description": "",
-      "id": 9
-    },
-    {
-      "truck_plate": "30K-15812",
-      "cargos": [
-        {
-          "id": 4,
-          "name": "contruction3"
-        }
-      ],
-      "driver": {
-        "id": 5,
-        "name": "Nguyen van EB",
-        "address": "Bac Ninh",
-        "phone": 1245684
-      },
-      "truck_type": "5 tons",
-      "price": 10000,
-      "dimension": "rtertert",
-      "address": "Hai phong",
-      "production_year": 2020,
-      "status": {
-        "id": "2",
-        "status": "In - Used"
-      },
-      "description": "222",
-      "id": 10
-    },
-    {
-      "truck_plate": "29v-2200",
-      "cargos": [
-        {
-          "id": 4,
-          "name": "contruction3"
-        }
-      ],
-      "driver": {
-        "name": "Can Van S",
-        "address": "Hai phong",
-        "phone": 8242323,
-        "id": 8
-      },
-      "truck_type": "10 tons",
-      "price": 9000,
-      "dimension": "25-30-4",
-      "address": "Bac Ninh",
-      "production_year": 2015,
-      "status": {
-        "id": "1",
-        "status": "New"
-      },
-      "description": "cc",
-      "id": 11
-    },
-    {
-      "truck_plate": "30K-15816",
-      "cargos": [
-        {
-          "id": 3,
-          "name": "Telephone"
-        }
-      ],
-      "driver": {
-        "id": 5,
-        "name": "Nguyen van EB",
-        "address": "Bac Ninh",
-        "phone": 1245684
-      },
-      "truck_type": "",
-      "price": 15020,
-      "dimension": "",
-      "address": "ABCDE",
-      "production_year": 2035,
-      "status": {
-        "id": "2",
-        "status": "In - Used"
-      },
-      "description": "",
-      "id": 12
+      "id": 28
     }
   ]
 }

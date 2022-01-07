@@ -1,13 +1,14 @@
 import Container from "@mui/material/Container";
-import { fieldDriver } from "../../components/contants/contants";
-import { useMutation } from "react-query";
-import { driversApi } from "../../service/api";
 import { IDriver } from "../../types/type";
 import { useHistory } from "react-router-dom";
-
 import FormDriver from "../../components/formDriver/formDriver";
+import useAddNewDriver from "./useAddNewDriver";
 
-export default function NewDriver() {
+const NewDriver = ({
+  handleOpenAlert,
+}: {
+  handleOpenAlert: (message: string) => void;
+}) => {
   const initialValues: IDriver = {
     name: "",
     address: "",
@@ -15,13 +16,15 @@ export default function NewDriver() {
   };
 
   let history = useHistory();
-
-  const { mutate: addNewDriver } = useMutation(driversApi.addNewDriver, {
-    onSuccess: (data: any) => {
-      history.push("/driver");
-    },
-  });
-  function handleSubmitForm(values: any) {
+  const onSuccess = () => {
+    history.push("/driver");
+    handleOpenAlert("Success");
+  };
+  const onError = () => {
+    handleOpenAlert("Error");
+  };
+  const { mutate: addNewDriver } = useAddNewDriver(onSuccess, onError);
+  function handleSubmitForm(values: IDriver) {
     addNewDriver(values);
   }
 
@@ -29,12 +32,10 @@ export default function NewDriver() {
     <Container>
       <FormDriver
         initialValues={initialValues}
-        type={"driver"}
-        field={fieldDriver}
         title="New"
         handleSubmitForm={handleSubmitForm}
-        handleOpenDialog={() => console.log("opendialog")}
       />
     </Container>
   );
-}
+};
+export default NewDriver;
